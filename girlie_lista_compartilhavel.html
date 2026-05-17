@@ -1,0 +1,245 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .page { font-family: 'DM Sans', sans-serif; padding: 2rem 1.5rem 2.5rem; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); border-radius: 20px; min-height: 560px; position: relative; overflow: hidden; }
+  .deco-circle { position: absolute; border-radius: 50%; opacity: 0.18; pointer-events: none; }
+  .deco-circle.c1 { width: 260px; height: 260px; background: #f48fb1; top: -80px; right: -60px; }
+  .deco-circle.c2 { width: 160px; height: 160px; background: #ce93d8; bottom: -50px; left: -40px; }
+  .header { text-align: center; margin-bottom: 1.5rem; }
+  .badge { display: inline-block; background: #f06292; color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 10px; }
+  .title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: #880e4f; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #c2185b; opacity: 0.75; }
+  .mode-bar { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.6); border-radius: 12px; padding: 8px 14px; margin-bottom: 1.2rem; border: 1.5px solid rgba(240,98,146,0.18); }
+  .mode-label { font-size: 12px; color: #880e4f; display: flex; align-items: center; gap: 6px; }
+  .mode-label i { font-size: 15px; color: #f06292; }
+  .mode-toggle { display: flex; gap: 6px; }
+  .mode-btn { font-size: 11px; font-family: 'DM Sans', sans-serif; padding: 5px 14px; border-radius: 20px; border: 1.5px solid rgba(240,98,146,0.3); cursor: pointer; transition: all 0.2s; background: transparent; color: #c2185b; font-weight: 500; }
+  .mode-btn.active { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border-color: transparent; }
+  .divider { display: flex; align-items: center; gap: 10px; margin: 0 0 1.2rem; }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #f48fb1, transparent); }
+  .table-wrap { background: rgba(255,255,255,0.72); border-radius: 16px; overflow: hidden; border: 1.5px solid rgba(240,98,146,0.18); box-shadow: 0 4px 24px rgba(194,24,91,0.08); }
+  .col-headers { display: grid; grid-template-columns: 1fr 2fr auto; background: linear-gradient(90deg,#f06292,#ec407a,#e91e8c); padding: 12px 20px; gap: 12px; align-items: center; }
+  .col-header { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; }
+  .rows { padding: 8px 0; }
+  .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 10px 20px; border-bottom: 1px solid rgba(240,98,146,0.09); animation: fadeIn 0.35s ease both; }
+  .row:last-child { border-bottom: none; }
+  .row:hover { background: rgba(244,143,177,0.1); }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)} }
+  .name-cell input, .link-cell input { width: 100%; border: 1.5px solid rgba(240,98,146,0.2); border-radius: 10px; padding: 7px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.85); color: #880e4f; outline: none; transition: border 0.2s; }
+  .name-cell input::placeholder, .link-cell input::placeholder { color: #f48fb1; }
+  .name-cell input:focus, .link-cell input:focus { border-color: #f06292; background: #fff; }
+  .link-cell input { color: #7b1fa2; }
+  .name-text { font-size: 13.5px; color: #880e4f; font-weight: 500; padding: 4px 0; }
+  .link-text a { font-size: 13px; color: #7b1fa2; text-decoration: none; word-break: break-all; }
+  .link-text a:hover { text-decoration: underline; }
+  .row-actions { display: flex; gap: 6px; }
+  .go-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: linear-gradient(135deg,#f48fb1,#f06292); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: transform 0.15s; flex-shrink: 0; }
+  .go-btn:hover { transform: scale(1.1); }
+  .del-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid rgba(240,98,146,0.3); background: transparent; color: #f48fb1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all 0.15s; flex-shrink: 0; }
+  .del-btn:hover { background: #fce4ec; color: #c2185b; }
+  .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.4rem; }
+  .add-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 9px 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 3px 12px rgba(233,30,140,0.25); transition: transform 0.15s; }
+  .add-btn:hover { transform: translateY(-1px); }
+  .count-badge { font-size: 12px; color: #c2185b; opacity: 0.7; }
+  .toast { position: fixed; bottom: 20px; right: 20px; background: #880e4f; color: #fff; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+  .password-screen { position: absolute; inset: 0; background: rgba(255,240,245,0.97); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; }
+  .password-screen .lock-icon { font-size: 40px; color: #f06292; }
+  .password-screen p { font-size: 14px; color: #880e4f; }
+  .password-screen input { border: 2px solid rgba(240,98,146,0.3); border-radius: 12px; padding: 10px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #880e4f; outline: none; text-align: center; letter-spacing: 2px; background: #fff; width: 200px; }
+  .password-screen input:focus { border-color: #f06292; }
+  .unlock-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 28px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; }
+  .err-msg { font-size: 12px; color: #c2185b; min-height: 16px; }
+  .info-box { background: rgba(255,255,255,0.7); border: 1.5px solid rgba(240,98,146,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 1rem; font-size: 12px; color: #880e4f; display: flex; gap: 8px; align-items: flex-start; line-height: 1.6; }
+  .info-box i { color: #f06292; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+</style>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Lista de nomes e links com modo edição e visualização</h2>
+
+<div class="page" id="page">
+  <div class="deco-circle c1"></div>
+  <div class="deco-circle c2"></div>
+
+  <div id="lock-screen" class="password-screen" style="display:none">
+    <i class="ti ti-lock lock-icon" aria-hidden="true"></i>
+    <p>Digite a senha para editar</p>
+    <input type="password" id="pwd-input" placeholder="••••••" onkeydown="if(event.key==='Enter')tryUnlock()" />
+    <div class="err-msg" id="err-msg"></div>
+    <button class="unlock-btn" onclick="tryUnlock()">Entrar como editora</button>
+  </div>
+
+  <div class="header">
+    <div class="badge">✦ minha lista ✦</div>
+    <div class="title" id="lista-title">Nomes & Links</div>
+    <div class="subtitle" id="mode-subtitle">modo visualização 👀</div>
+  </div>
+
+  <div class="mode-bar">
+    <div class="mode-label">
+      <i class="ti ti-eye" id="mode-icon" aria-hidden="true"></i>
+      <span id="mode-label-text">Visualização</span>
+    </div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btn-view" onclick="setMode('view')">👀 Ver</button>
+      <button class="mode-btn" id="btn-edit" onclick="requestEdit()">✏️ Editar</button>
+    </div>
+  </div>
+
+  <div id="edit-info" class="info-box" style="display:none">
+    <i class="ti ti-info-circle" aria-hidden="true"></i>
+    <span>Você está no <strong>modo edição</strong>. Quem receber o arquivo HTML verá apenas os dados, sem poder editar. Compartilhe o arquivo e guarde a senha só pra você! 🌸</span>
+  </div>
+
+  <div class="divider"><div class="divider-line"></div><i class="ti ti-heart divider-icon" aria-hidden="true"></i><div class="divider-line"></div></div>
+
+  <div class="table-wrap">
+    <div class="col-headers">
+      <div class="col-header"><i class="ti ti-sparkles" aria-hidden="true" style="margin-right:4px"></i>Nome</div>
+      <div class="col-header"><i class="ti ti-link" aria-hidden="true" style="margin-right:4px"></i>Link</div>
+      <div class="col-header" style="opacity:0">ir</div>
+    </div>
+    <div class="rows" id="rows"></div>
+  </div>
+
+  <div class="footer" id="footer-bar">
+    <button class="add-btn" id="add-row-btn" onclick="addRow()" style="display:none">
+      <i class="ti ti-plus" aria-hidden="true"></i> Nova linha
+    </button>
+    <span></span>
+    <span class="count-badge" id="count"></span>
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ Salvo!</div>
+
+<script>
+  const STORAGE_KEY = 'girlie_lista_v2';
+  const EDITOR_PASSWORD = 'minhalista123';
+  let rows = [];
+  let isEditor = false;
+  let saveTimer = null;
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) rows = JSON.parse(raw);
+    } catch(e) {}
+    if (!rows.length) rows = [{name:'',link:''},{name:'',link:''},{name:'',link:''},{name:'',link:''},{name:'',link:''}];
+    setMode('view');
+  }
+
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(rows)); } catch(e) {}
+    showToast('✓ Salvo!');
+  }
+
+  function scheduleSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(save, 600);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  function requestEdit() {
+    if (isEditor) { setMode('edit'); return; }
+    document.getElementById('lock-screen').style.display = 'flex';
+    setTimeout(() => document.getElementById('pwd-input').focus(), 100);
+  }
+
+  function tryUnlock() {
+    const val = document.getElementById('pwd-input').value;
+    if (val === EDITOR_PASSWORD) {
+      isEditor = true;
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('pwd-input').value = '';
+      document.getElementById('err-msg').textContent = '';
+      setMode('edit');
+    } else {
+      document.getElementById('err-msg').textContent = 'Senha incorreta 💔';
+      document.getElementById('pwd-input').value = '';
+    }
+  }
+
+  function setMode(mode) {
+    isEditor = mode === 'edit' ? isEditor : isEditor;
+    const editMode = mode === 'edit' && isEditor;
+    document.getElementById('btn-view').classList.toggle('active', !editMode);
+    document.getElementById('btn-edit').classList.toggle('active', editMode);
+    document.getElementById('mode-icon').className = editMode ? 'ti ti-edit' : 'ti ti-eye';
+    document.getElementById('mode-label-text').textContent = editMode ? 'Edição' : 'Visualização';
+    document.getElementById('mode-subtitle').textContent = editMode ? 'modo edição ✏️' : 'modo visualização 👀';
+    document.getElementById('edit-info').style.display = editMode ? 'flex' : 'none';
+    document.getElementById('add-row-btn').style.display = editMode ? 'inline-flex' : 'none';
+    renderRows(editMode);
+  }
+
+  function addRow() {
+    rows.push({name:'',link:''});
+    setMode('edit');
+    scheduleSave();
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('.name-cell input');
+      if (inputs.length) inputs[inputs.length-1].focus();
+    }, 60);
+  }
+
+  function removeRow(i) {
+    rows.splice(i, 1);
+    if (!rows.length) rows.push({name:'',link:''});
+    setMode('edit');
+    save();
+  }
+
+  function renderRows(editMode) {
+    const container = document.getElementById('rows');
+    container.innerHTML = '';
+    rows.forEach((r, i) => {
+      const div = document.createElement('div');
+      div.className = 'row';
+      div.style.animationDelay = Math.min(i*25,200)+'ms';
+      if (editMode) {
+        div.innerHTML = `
+          <div class="name-cell"><input type="text" placeholder="Nome..." value="${esc(r.name)}" oninput="rows[${i}].name=this.value;scheduleSave()" /></div>
+          <div class="link-cell"><input type="url" placeholder="https://..." value="${esc(r.link)}" oninput="rows[${i}].link=this.value;scheduleSave()" /></div>
+          <div class="row-actions">
+            <button class="go-btn" onclick="openLink(${i})" aria-label="Abrir link"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+            <button class="del-btn" onclick="removeRow(${i})" aria-label="Remover"><i class="ti ti-x" aria-hidden="true"></i></button>
+          </div>`;
+      } else {
+        const hasLink = r.link && r.link.trim();
+        const url = hasLink ? (r.link.startsWith('http') ? r.link : 'https://'+r.link) : '';
+        div.innerHTML = `
+          <div class="name-text">${esc(r.name) || '<span style="color:#f48fb1;font-style:italic">—</span>'}</div>
+          <div class="link-text">${hasLink ? `<a href="${esc(url)}" target="_blank">${esc(r.link)}</a>` : '<span style="color:#f48fb1">—</span>'}</div>
+          <div class="row-actions">
+            ${hasLink ? `<button class="go-btn" onclick="window.open('${esc(url)}','_blank')" aria-label="Abrir link"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>` : '<span style="width:30px"></span>'}
+          </div>`;
+      }
+      container.appendChild(div);
+    });
+    updateCount();
+  }
+
+  function openLink(i) {
+    const url = rows[i].link.trim();
+    if (!url) return;
+    window.open(url.startsWith('http') ? url : 'https://'+url, '_blank');
+  }
+
+  function updateCount() {
+    const filled = rows.filter(r => r.name.trim() || r.link.trim()).length;
+    document.getElementById('count').textContent = filled ? filled+(filled===1?' item':' itens')+' 🌸' : '';
+  }
+
+  function esc(s) {
+    return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  load();
+</script>
