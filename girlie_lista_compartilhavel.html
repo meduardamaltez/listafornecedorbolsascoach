@@ -1,83 +1,87 @@
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lista Fornecedores Bolsas ✨</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  .page { font-family: 'DM Sans', sans-serif; padding: 2rem 1.5rem 2.5rem; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); border-radius: 20px; min-height: 560px; position: relative; overflow: hidden; }
-  .deco-circle { position: absolute; border-radius: 50%; opacity: 0.18; pointer-events: none; }
-  .deco-circle.c1 { width: 260px; height: 260px; background: #f48fb1; top: -80px; right: -60px; }
-  .deco-circle.c2 { width: 160px; height: 160px; background: #ce93d8; bottom: -50px; left: -40px; }
-  .header { text-align: center; margin-bottom: 1.5rem; }
-  .badge { display: inline-block; background: #f06292; color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 10px; }
-  .title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: #880e4f; margin-bottom: 4px; }
-  .subtitle { font-size: 13px; color: #c2185b; opacity: 0.75; }
-  .mode-bar { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.6); border-radius: 12px; padding: 8px 14px; margin-bottom: 1.2rem; border: 1.5px solid rgba(240,98,146,0.18); }
-  .mode-label { font-size: 12px; color: #880e4f; display: flex; align-items: center; gap: 6px; }
-  .mode-label i { font-size: 15px; color: #f06292; }
-  .mode-toggle { display: flex; gap: 6px; }
-  .mode-btn { font-size: 11px; font-family: 'DM Sans', sans-serif; padding: 5px 14px; border-radius: 20px; border: 1.5px solid rgba(240,98,146,0.3); cursor: pointer; transition: all 0.2s; background: transparent; color: #c2185b; font-weight: 500; }
-  .mode-btn.active { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border-color: transparent; }
-  .divider { display: flex; align-items: center; gap: 10px; margin: 0 0 1.2rem; }
+  body { min-height: 100vh; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); font-family: 'DM Sans', sans-serif; padding: 2rem 1rem; }
+  .page { max-width: 780px; margin: 0 auto; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); border-radius: 24px; padding: 2.5rem 2rem 3rem; position: relative; overflow: hidden; box-shadow: 0 8px 40px rgba(194,24,91,0.1); }
+  .deco { position: absolute; border-radius: 50%; opacity: 0.15; pointer-events: none; }
+  .deco.c1 { width: 280px; height: 280px; background: #f48fb1; top: -90px; right: -70px; }
+  .deco.c2 { width: 180px; height: 180px; background: #ce93d8; bottom: -60px; left: -50px; }
+  .header { text-align: center; margin-bottom: 2rem; }
+  .badge { display: inline-block; background: #f06292; color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; margin-bottom: 12px; }
+  .title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; color: #880e4f; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #c2185b; opacity: 0.8; }
+  .divider { display: flex; align-items: center; gap: 10px; margin: 1.5rem 0; }
   .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #f48fb1, transparent); }
+  .mode-bar { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.65); border-radius: 12px; padding: 8px 16px; margin-bottom: 1.2rem; border: 1.5px solid rgba(240,98,146,0.18); }
+  .mode-label { font-size: 12px; color: #880e4f; display: flex; align-items: center; gap: 6px; }
+  .mode-toggle { display: flex; gap: 6px; }
+  .mode-btn { font-size: 11px; font-family: 'DM Sans', sans-serif; padding: 5px 14px; border-radius: 20px; border: 1.5px solid rgba(240,98,146,0.3); cursor: pointer; background: transparent; color: #c2185b; font-weight: 500; transition: all 0.2s; }
+  .mode-btn.active { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border-color: transparent; }
   .table-wrap { background: rgba(255,255,255,0.72); border-radius: 16px; overflow: hidden; border: 1.5px solid rgba(240,98,146,0.18); box-shadow: 0 4px 24px rgba(194,24,91,0.08); }
-  .col-headers { display: grid; grid-template-columns: 1fr 2fr auto; background: linear-gradient(90deg,#f06292,#ec407a,#e91e8c); padding: 12px 20px; gap: 12px; align-items: center; }
-  .col-header { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; }
-  .rows { padding: 8px 0; }
-  .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 10px 20px; border-bottom: 1px solid rgba(240,98,146,0.09); animation: fadeIn 0.35s ease both; }
+  .col-headers { display: grid; grid-template-columns: 1fr 2fr auto; background: linear-gradient(90deg,#f06292,#ec407a,#e91e8c); padding: 13px 20px; gap: 12px; }
+  .col-header { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; }
+  .rows { padding: 6px 0; min-height: 60px; }
+  .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 9px 20px; border-bottom: 1px solid rgba(240,98,146,0.09); transition: background 0.2s; }
   .row:last-child { border-bottom: none; }
   .row:hover { background: rgba(244,143,177,0.1); }
-  @keyframes fadeIn { from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)} }
   .name-cell input, .link-cell input { width: 100%; border: 1.5px solid rgba(240,98,146,0.2); border-radius: 10px; padding: 7px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.85); color: #880e4f; outline: none; transition: border 0.2s; }
   .name-cell input::placeholder, .link-cell input::placeholder { color: #f48fb1; }
   .name-cell input:focus, .link-cell input:focus { border-color: #f06292; background: #fff; }
-  .link-cell input { color: #7b1fa2; }
-  .name-text { font-size: 13.5px; color: #880e4f; font-weight: 500; padding: 4px 0; }
+  .link-cell input { color: #7b1fa2; font-size: 12.5px; }
+  .name-text { font-size: 13.5px; color: #880e4f; font-weight: 500; }
   .link-text a { font-size: 13px; color: #7b1fa2; text-decoration: none; word-break: break-all; }
   .link-text a:hover { text-decoration: underline; }
-  .row-actions { display: flex; gap: 6px; }
+  .row-actions { display: flex; gap: 6px; align-items: center; }
   .go-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: linear-gradient(135deg,#f48fb1,#f06292); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: transform 0.15s; flex-shrink: 0; }
   .go-btn:hover { transform: scale(1.1); }
   .del-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid rgba(240,98,146,0.3); background: transparent; color: #f48fb1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all 0.15s; flex-shrink: 0; }
   .del-btn:hover { background: #fce4ec; color: #c2185b; }
-  .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.4rem; }
-  .add-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 9px 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 3px 12px rgba(233,30,140,0.25); transition: transform 0.15s; }
+  .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+  .add-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 22px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 3px 12px rgba(233,30,140,0.25); transition: transform 0.15s; }
   .add-btn:hover { transform: translateY(-1px); }
   .count-badge { font-size: 12px; color: #c2185b; opacity: 0.7; }
-  .toast { position: fixed; bottom: 20px; right: 20px; background: #880e4f; color: #fff; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #880e4f; color: #fff; padding: 9px 20px; border-radius: 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
   .toast.show { opacity: 1; }
-  .password-screen { position: absolute; inset: 0; background: rgba(255,240,245,0.97); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 10; }
-  .password-screen .lock-icon { font-size: 40px; color: #f06292; }
-  .password-screen p { font-size: 14px; color: #880e4f; }
-  .password-screen input { border: 2px solid rgba(240,98,146,0.3); border-radius: 12px; padding: 10px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #880e4f; outline: none; text-align: center; letter-spacing: 2px; background: #fff; width: 200px; }
-  .password-screen input:focus { border-color: #f06292; }
-  .unlock-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 28px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; }
-  .err-msg { font-size: 12px; color: #c2185b; min-height: 16px; }
-  .info-box { background: rgba(255,255,255,0.7); border: 1.5px solid rgba(240,98,146,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 1rem; font-size: 12px; color: #880e4f; display: flex; gap: 8px; align-items: flex-start; line-height: 1.6; }
-  .info-box i { color: #f06292; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .lock-overlay { position: fixed; inset: 0; background: rgba(255,240,245,0.97); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 50; }
+  .lock-overlay .lock-icon { font-size: 44px; color: #f06292; }
+  .lock-overlay p { font-size: 14px; color: #880e4f; }
+  .lock-overlay input { border: 2px solid rgba(240,98,146,0.3); border-radius: 12px; padding: 10px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #880e4f; outline: none; text-align: center; letter-spacing: 2px; background: #fff; width: 220px; }
+  .lock-overlay input:focus { border-color: #f06292; }
+  .unlock-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 30px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; }
+  .err-msg { font-size: 12px; color: #c2185b; min-height: 18px; }
+  .loading { text-align: center; padding: 2rem; color: #f06292; font-size: 13px; }
+  .info-box { background: rgba(255,255,255,0.65); border: 1.5px solid rgba(240,98,146,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 1rem; font-size: 12px; color: #880e4f; display: flex; gap: 8px; align-items: flex-start; line-height: 1.6; }
 </style>
+</head>
+<body>
 
-<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Lista de nomes e links com modo edição e visualização</h2>
+<div id="lock-overlay" class="lock-overlay" style="display:none">
+  <i class="ti ti-lock lock-icon"></i>
+  <p>Digite a senha para editar</p>
+  <input type="password" id="pwd-input" placeholder="••••••" onkeydown="if(event.key==='Enter')tryUnlock()" />
+  <div class="err-msg" id="err-msg"></div>
+  <button class="unlock-btn" onclick="tryUnlock()">Entrar como editora</button>
+</div>
 
-<div class="page" id="page">
-  <div class="deco-circle c1"></div>
-  <div class="deco-circle c2"></div>
-
-  <div id="lock-screen" class="password-screen" style="display:none">
-    <i class="ti ti-lock lock-icon" aria-hidden="true"></i>
-    <p>Digite a senha para editar</p>
-    <input type="password" id="pwd-input" placeholder="••••••" onkeydown="if(event.key==='Enter')tryUnlock()" />
-    <div class="err-msg" id="err-msg"></div>
-    <button class="unlock-btn" onclick="tryUnlock()">Entrar como editora</button>
-  </div>
-
+<div class="page">
+  <div class="deco c1"></div>
+  <div class="deco c2"></div>
   <div class="header">
-    <div class="badge">✦ minha lista ✦</div>
-    <div class="title" id="lista-title">Nomes & Links</div>
+    <div class="badge">✦ lista de fornecedores ✦</div>
+    <div class="title">Lista Bolsas Coach</div>
     <div class="subtitle" id="mode-subtitle">modo visualização 👀</div>
   </div>
-
+  <div class="divider"><div class="divider-line"></div><i class="ti ti-heart" style="color:#f06292;font-size:16px"></i><div class="divider-line"></div></div>
   <div class="mode-bar">
     <div class="mode-label">
-      <i class="ti ti-eye" id="mode-icon" aria-hidden="true"></i>
+      <i class="ti ti-eye" id="mode-icon" style="font-size:15px;color:#f06292"></i>
       <span id="mode-label-text">Visualização</span>
     </div>
     <div class="mode-toggle">
@@ -85,80 +89,94 @@
       <button class="mode-btn" id="btn-edit" onclick="requestEdit()">✏️ Editar</button>
     </div>
   </div>
-
   <div id="edit-info" class="info-box" style="display:none">
-    <i class="ti ti-info-circle" aria-hidden="true"></i>
-    <span>Você está no <strong>modo edição</strong>. Quem receber o arquivo HTML verá apenas os dados, sem poder editar. Compartilhe o arquivo e guarde a senha só pra você! 🌸</span>
+    <i class="ti ti-info-circle" style="font-size:15px;color:#f06292;flex-shrink:0;margin-top:1px"></i>
+    <span>Você está no <strong>modo edição</strong>. Qualquer alteração salva automaticamente na nuvem e aparece pra todo mundo em tempo real! 🌸</span>
   </div>
-
-  <div class="divider"><div class="divider-line"></div><i class="ti ti-heart divider-icon" aria-hidden="true"></i><div class="divider-line"></div></div>
-
   <div class="table-wrap">
     <div class="col-headers">
-      <div class="col-header"><i class="ti ti-sparkles" aria-hidden="true" style="margin-right:4px"></i>Nome</div>
-      <div class="col-header"><i class="ti ti-link" aria-hidden="true" style="margin-right:4px"></i>Link</div>
+      <div class="col-header">✦ Nome</div>
+      <div class="col-header">🔗 Link</div>
       <div class="col-header" style="opacity:0">ir</div>
     </div>
-    <div class="rows" id="rows"></div>
+    <div class="rows" id="rows"><div class="loading">Carregando... 🌸</div></div>
   </div>
-
-  <div class="footer" id="footer-bar">
-    <button class="add-btn" id="add-row-btn" onclick="addRow()" style="display:none">
-      <i class="ti ti-plus" aria-hidden="true"></i> Nova linha
+  <div class="footer">
+    <button class="add-btn" id="add-btn" onclick="addRow()" style="display:none">
+      <i class="ti ti-plus"></i> Nova linha
     </button>
     <span></span>
     <span class="count-badge" id="count"></span>
   </div>
 </div>
 
-<div class="toast" id="toast">✓ Salvo!</div>
+<div class="toast" id="toast"></div>
 
-<script>
-  const STORAGE_KEY = 'girlie_lista_v2';
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAFDh2Qlnn8-LGbKfz_4dXeorF4kh7Pfec",
+    authDomain: "lista-fornecedores-bolsas.firebaseapp.com",
+    projectId: "lista-fornecedores-bolsas",
+    storageBucket: "lista-fornecedores-bolsas.firebasestorage.app",
+    messagingSenderId: "673865354929",
+    appId: "1:673865354929:web:aba5992d921be6d5b81c90"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const colRef = collection(db, "lista");
   const EDITOR_PASSWORD = 'minhalista123';
-  let rows = [];
   let isEditor = false;
-  let saveTimer = null;
+  let rows = [];
+  let editMode = false;
 
-  function load() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) rows = JSON.parse(raw);
-    } catch(e) {}
-    if (!rows.length) rows = [{name:'',link:''},{name:'',link:''},{name:'',link:''},{name:'',link:''},{name:'',link:''}];
-    setMode('view');
+  const q = query(colRef, orderBy("ordem"));
+  onSnapshot(q, (snapshot) => {
+    rows = [];
+    snapshot.forEach(d => rows.push({ id: d.id, ...d.data() }));
+    if (rows.length === 0 && isEditor) addEmptyRows();
+    renderRows();
+  }, () => {
+    document.getElementById('rows').innerHTML = '<div class="loading">Nenhum item ainda. Entre como editora para adicionar! 🌸</div>';
+  });
+
+  function addEmptyRows() {
+    for (let i = 0; i < 5; i++) addDoc(colRef, { name: '', link: '', ordem: i });
   }
 
-  function save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(rows)); } catch(e) {}
-    showToast('✓ Salvo!');
+  window.addRow = async () => {
+    await addDoc(colRef, { name: '', link: '', ordem: rows.length });
   }
 
-  function scheduleSave() {
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(save, 600);
+  window.updateRow = (id, field, value) => {
+    clearTimeout(window._t);
+    window._t = setTimeout(async () => {
+      await updateDoc(doc(db, 'lista', id), { [field]: value });
+      showToast('✓ Salvo na nuvem!');
+    }, 800);
   }
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 1800);
+  window.removeRow = async (id) => {
+    await deleteDoc(doc(db, 'lista', id));
   }
 
-  function requestEdit() {
+  window.requestEdit = () => {
     if (isEditor) { setMode('edit'); return; }
-    document.getElementById('lock-screen').style.display = 'flex';
+    document.getElementById('lock-overlay').style.display = 'flex';
     setTimeout(() => document.getElementById('pwd-input').focus(), 100);
   }
 
-  function tryUnlock() {
+  window.tryUnlock = () => {
     const val = document.getElementById('pwd-input').value;
     if (val === EDITOR_PASSWORD) {
       isEditor = true;
-      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('lock-overlay').style.display = 'none';
       document.getElementById('pwd-input').value = '';
       document.getElementById('err-msg').textContent = '';
+      if (rows.length === 0) addEmptyRows();
       setMode('edit');
     } else {
       document.getElementById('err-msg').textContent = 'Senha incorreta 💔';
@@ -166,80 +184,59 @@
     }
   }
 
-  function setMode(mode) {
-    isEditor = mode === 'edit' ? isEditor : isEditor;
-    const editMode = mode === 'edit' && isEditor;
+  window.setMode = (mode) => {
+    editMode = mode === 'edit' && isEditor;
     document.getElementById('btn-view').classList.toggle('active', !editMode);
     document.getElementById('btn-edit').classList.toggle('active', editMode);
     document.getElementById('mode-icon').className = editMode ? 'ti ti-edit' : 'ti ti-eye';
     document.getElementById('mode-label-text').textContent = editMode ? 'Edição' : 'Visualização';
     document.getElementById('mode-subtitle').textContent = editMode ? 'modo edição ✏️' : 'modo visualização 👀';
     document.getElementById('edit-info').style.display = editMode ? 'flex' : 'none';
-    document.getElementById('add-row-btn').style.display = editMode ? 'inline-flex' : 'none';
-    renderRows(editMode);
+    document.getElementById('add-btn').style.display = editMode ? 'inline-flex' : 'none';
+    renderRows();
   }
 
-  function addRow() {
-    rows.push({name:'',link:''});
-    setMode('edit');
-    scheduleSave();
-    setTimeout(() => {
-      const inputs = document.querySelectorAll('.name-cell input');
-      if (inputs.length) inputs[inputs.length-1].focus();
-    }, 60);
-  }
-
-  function removeRow(i) {
-    rows.splice(i, 1);
-    if (!rows.length) rows.push({name:'',link:''});
-    setMode('edit');
-    save();
-  }
-
-  function renderRows(editMode) {
+  function renderRows() {
     const container = document.getElementById('rows');
+    if (!rows.length) { container.innerHTML = '<div class="loading">Nenhum item ainda 🌸</div>'; updateCount(); return; }
     container.innerHTML = '';
-    rows.forEach((r, i) => {
+    rows.forEach(r => {
       const div = document.createElement('div');
       div.className = 'row';
-      div.style.animationDelay = Math.min(i*25,200)+'ms';
       if (editMode) {
         div.innerHTML = `
-          <div class="name-cell"><input type="text" placeholder="Nome..." value="${esc(r.name)}" oninput="rows[${i}].name=this.value;scheduleSave()" /></div>
-          <div class="link-cell"><input type="url" placeholder="https://..." value="${esc(r.link)}" oninput="rows[${i}].link=this.value;scheduleSave()" /></div>
+          <div class="name-cell"><input type="text" placeholder="Nome..." value="${esc(r.name)}" oninput="updateRow('${r.id}','name',this.value)"/></div>
+          <div class="link-cell"><input type="url" placeholder="https://..." value="${esc(r.link)}" oninput="updateRow('${r.id}','link',this.value)"/></div>
           <div class="row-actions">
-            <button class="go-btn" onclick="openLink(${i})" aria-label="Abrir link"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-            <button class="del-btn" onclick="removeRow(${i})" aria-label="Remover"><i class="ti ti-x" aria-hidden="true"></i></button>
+            <button class="go-btn" onclick="openLink('${esc(r.link)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>
+            <button class="del-btn" onclick="removeRow('${r.id}')" aria-label="Remover"><i class="ti ti-x"></i></button>
           </div>`;
       } else {
-        const hasLink = r.link && r.link.trim();
-        const url = hasLink ? (r.link.startsWith('http') ? r.link : 'https://'+r.link) : '';
+        const url = r.link ? (r.link.startsWith('http') ? r.link : 'https://'+r.link) : '';
         div.innerHTML = `
-          <div class="name-text">${esc(r.name) || '<span style="color:#f48fb1;font-style:italic">—</span>'}</div>
-          <div class="link-text">${hasLink ? `<a href="${esc(url)}" target="_blank">${esc(r.link)}</a>` : '<span style="color:#f48fb1">—</span>'}</div>
-          <div class="row-actions">
-            ${hasLink ? `<button class="go-btn" onclick="window.open('${esc(url)}','_blank')" aria-label="Abrir link"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>` : '<span style="width:30px"></span>'}
-          </div>`;
+          <div class="name-text">${esc(r.name)||'<span style="color:#f48fb1;font-style:italic">—</span>'}</div>
+          <div class="link-text">${url?`<a href="${esc(url)}" target="_blank">${esc(r.link)}</a>`:'<span style="color:#f48fb1">—</span>'}</div>
+          <div class="row-actions">${url?`<button class="go-btn" onclick="openLink('${esc(url)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>`:'<span style="width:30px"></span>'}</div>`;
       }
       container.appendChild(div);
     });
     updateCount();
   }
 
-  function openLink(i) {
-    const url = rows[i].link.trim();
-    if (!url) return;
-    window.open(url.startsWith('http') ? url : 'https://'+url, '_blank');
-  }
+  window.openLink = (url) => { if (url) window.open(url, '_blank'); }
 
   function updateCount() {
-    const filled = rows.filter(r => r.name.trim() || r.link.trim()).length;
-    document.getElementById('count').textContent = filled ? filled+(filled===1?' item':' itens')+' 🌸' : '';
+    const n = rows.filter(r => r.name || r.link).length;
+    document.getElementById('count').textContent = n ? n+(n===1?' item':' itens')+' 🌸' : '';
   }
 
-  function esc(s) {
-    return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
   }
 
-  load();
+  function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
+</body>
+</html>
