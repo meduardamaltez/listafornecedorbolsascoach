@@ -3,52 +3,80 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Lista Fornecedores Bolsas ✨</title>
+<title>Fornecedores ✨</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { min-height: 100vh; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); font-family: 'DM Sans', sans-serif; padding: 2rem 1rem; }
-  .page { max-width: 780px; margin: 0 auto; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); border-radius: 24px; padding: 2.5rem 2rem 3rem; position: relative; overflow: hidden; box-shadow: 0 8px 40px rgba(194,24,91,0.1); }
-  .deco { position: absolute; border-radius: 50%; opacity: 0.15; pointer-events: none; }
-  .deco.c1 { width: 280px; height: 280px; background: #f48fb1; top: -90px; right: -70px; }
-  .deco.c2 { width: 180px; height: 180px; background: #ce93d8; bottom: -60px; left: -50px; }
-  .header { text-align: center; margin-bottom: 2rem; }
-  .badge { display: inline-block; background: #f06292; color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; margin-bottom: 12px; }
-  .title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; color: #880e4f; margin-bottom: 6px; }
-  .subtitle { font-size: 13px; color: #c2185b; opacity: 0.8; }
-  .divider { display: flex; align-items: center; gap: 10px; margin: 1.5rem 0; }
+  .page { max-width: 820px; margin: 0 auto; }
+
+  /* GATE */
+  .gate { position: fixed; inset: 0; background: linear-gradient(135deg, #fff0f5, #fce4ec, #f8bbda); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; z-index: 100; }
+  .gate-deco1 { position: absolute; width: 300px; height: 300px; background: #f48fb1; border-radius: 50%; opacity: 0.15; top: -100px; right: -80px; pointer-events: none; }
+  .gate-deco2 { position: absolute; width: 200px; height: 200px; background: #ce93d8; border-radius: 50%; opacity: 0.15; bottom: -70px; left: -60px; pointer-events: none; }
+  .gate-icon { font-size: 52px; color: #f06292; }
+  .gate-title { font-family: 'Playfair Display', serif; font-size: 28px; color: #880e4f; font-weight: 600; }
+  .gate-sub { font-size: 13px; color: #c2185b; opacity: 0.8; }
+  .gate input { border: 2px solid rgba(240,98,146,0.3); border-radius: 14px; padding: 12px 20px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: #880e4f; outline: none; text-align: center; letter-spacing: 3px; background: #fff; width: 240px; box-shadow: 0 2px 12px rgba(240,98,146,0.1); transition: border 0.2s; }
+  .gate input:focus { border-color: #f06292; }
+  .gate-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 24px; padding: 12px 36px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 4px 16px rgba(233,30,140,0.3); transition: transform 0.15s; }
+  .gate-btn:hover { transform: translateY(-2px); }
+  .gate-err { font-size: 12px; color: #c2185b; min-height: 18px; }
+
+  /* HEADER */
+  .main-header { text-align: center; margin-bottom: 2rem; background: linear-gradient(135deg, #fff0f5, #fce4ec); border-radius: 24px; padding: 2rem; box-shadow: 0 4px 24px rgba(194,24,91,0.08); position: relative; overflow: hidden; }
+  .main-header .deco1 { position: absolute; width: 200px; height: 200px; background: #f48fb1; border-radius: 50%; opacity: 0.15; top: -60px; right: -40px; pointer-events: none; }
+  .badge { display: inline-block; background: #f06292; color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; margin-bottom: 10px; }
+  .main-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; color: #880e4f; margin-bottom: 6px; }
+  .main-sub { font-size: 13px; color: #c2185b; opacity: 0.8; }
+  .divider { display: flex; align-items: center; gap: 10px; margin: 1rem 0 0; }
   .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #f48fb1, transparent); }
-  .mode-bar { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.65); border-radius: 12px; padding: 8px 16px; margin-bottom: 1.2rem; border: 1.5px solid rgba(240,98,146,0.18); }
-  .mode-label { font-size: 12px; color: #880e4f; display: flex; align-items: center; gap: 6px; }
-  .mode-toggle { display: flex; gap: 6px; }
+
+  /* TOP BAR */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+  .mode-bar { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.7); border-radius: 12px; padding: 7px 14px; border: 1.5px solid rgba(240,98,146,0.18); }
   .mode-btn { font-size: 11px; font-family: 'DM Sans', sans-serif; padding: 5px 14px; border-radius: 20px; border: 1.5px solid rgba(240,98,146,0.3); cursor: pointer; background: transparent; color: #c2185b; font-weight: 500; transition: all 0.2s; }
   .mode-btn.active { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border-color: transparent; }
-  .table-wrap { background: rgba(255,255,255,0.72); border-radius: 16px; overflow: hidden; border: 1.5px solid rgba(240,98,146,0.18); box-shadow: 0 4px 24px rgba(194,24,91,0.08); }
-  .col-headers { display: grid; grid-template-columns: 1fr 2fr auto; background: linear-gradient(90deg,#f06292,#ec407a,#e91e8c); padding: 13px 20px; gap: 12px; }
-  .col-header { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; }
-  .rows { padding: 6px 0; min-height: 60px; }
-  .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 9px 20px; border-bottom: 1px solid rgba(240,98,146,0.09); transition: background 0.2s; }
-  .row:last-child { border-bottom: none; }
-  .row:hover { background: rgba(244,143,177,0.1); }
-  .name-cell input, .link-cell input { width: 100%; border: 1.5px solid rgba(240,98,146,0.2); border-radius: 10px; padding: 7px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.85); color: #880e4f; outline: none; transition: border 0.2s; }
-  .name-cell input::placeholder, .link-cell input::placeholder { color: #f48fb1; }
-  .name-cell input:focus, .link-cell input:focus { border-color: #f06292; background: #fff; }
-  .link-cell input { color: #7b1fa2; font-size: 12.5px; }
-  .name-text { font-size: 13.5px; color: #880e4f; font-weight: 500; }
-  .link-text a { font-size: 13px; color: #7b1fa2; text-decoration: none; word-break: break-all; }
-  .link-text a:hover { text-decoration: underline; }
-  .row-actions { display: flex; gap: 6px; align-items: center; }
-  .go-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: linear-gradient(135deg,#f48fb1,#f06292); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: transform 0.15s; flex-shrink: 0; }
+  .add-cat-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 9px 18px; font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 3px 12px rgba(233,30,140,0.2); transition: transform 0.15s; }
+  .add-cat-btn:hover { transform: translateY(-1px); }
+
+  /* CATEGORIAS GRID */
+  .cats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+
+  /* CARD */
+  .cat-card { background: rgba(255,255,255,0.75); border-radius: 18px; border: 1.5px solid rgba(240,98,146,0.15); box-shadow: 0 4px 20px rgba(194,24,91,0.07); overflow: hidden; transition: box-shadow 0.2s; }
+  .cat-card:hover { box-shadow: 0 6px 28px rgba(194,24,91,0.13); }
+  .cat-header { background: linear-gradient(90deg,#f06292,#e91e8c); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .cat-name { font-family: 'Playfair Display', serif; font-size: 16px; color: #fff; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .cat-name-input { font-family: 'Playfair Display', serif; font-size: 15px; background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 4px 10px; color: #fff; outline: none; width: 150px; }
+  .cat-name-input::placeholder { color: rgba(255,255,255,0.7); }
+  .cat-actions { display: flex; gap: 6px; }
+  .cat-icon-btn { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.4); background: transparent; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: background 0.15s; }
+  .cat-icon-btn:hover { background: rgba(255,255,255,0.2); }
+  .cat-body { padding: 10px 0 6px; }
+  .cat-body.collapsed { display: none; }
+
+  /* ROWS dentro do card */
+  .item-row { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 8px; align-items: center; padding: 7px 14px; border-bottom: 1px solid rgba(240,98,146,0.08); }
+  .item-row:last-child { border-bottom: none; }
+  .item-row:hover { background: rgba(244,143,177,0.08); }
+  .item-row input { width: 100%; border: 1.5px solid rgba(240,98,146,0.18); border-radius: 8px; padding: 5px 9px; font-size: 12px; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.85); color: #880e4f; outline: none; transition: border 0.2s; }
+  .item-row input::placeholder { color: #f48fb1; }
+  .item-row input:focus { border-color: #f06292; }
+  .item-name-text { font-size: 13px; color: #880e4f; font-weight: 500; }
+  .item-link-text a { font-size: 12px; color: #7b1fa2; text-decoration: none; word-break: break-all; }
+  .item-link-text a:hover { text-decoration: underline; }
+  .item-actions { display: flex; gap: 4px; }
+  .go-btn { width: 26px; height: 26px; border-radius: 50%; border: none; background: linear-gradient(135deg,#f48fb1,#f06292); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: transform 0.15s; flex-shrink: 0; }
   .go-btn:hover { transform: scale(1.1); }
-  .del-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid rgba(240,98,146,0.3); background: transparent; color: #f48fb1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all 0.15s; flex-shrink: 0; }
+  .del-btn { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(240,98,146,0.3); background: transparent; color: #f48fb1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px; transition: all 0.15s; flex-shrink: 0; }
   .del-btn:hover { background: #fce4ec; color: #c2185b; }
-  .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
-  .add-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 22px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 3px 12px rgba(233,30,140,0.25); transition: transform 0.15s; }
-  .add-btn:hover { transform: translateY(-1px); }
-  .count-badge { font-size: 12px; color: #c2185b; opacity: 0.7; }
-  .toast { position: fixed; bottom: 24px; right: 24px; background: #880e4f; color: #fff; padding: 9px 20px; border-radius: 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
-  .toast.show { opacity: 1; }
+  .add-item-btn { display: flex; align-items: center; gap: 5px; margin: 8px 14px 4px; font-size: 11px; color: #f06292; cursor: pointer; background: none; border: 1.5px dashed rgba(240,98,146,0.35); border-radius: 8px; padding: 5px 10px; width: calc(100% - 28px); justify-content: center; transition: background 0.15s; font-family: 'DM Sans', sans-serif; }
+  .add-item-btn:hover { background: rgba(240,98,146,0.07); }
+  .cat-count { font-size: 11px; color: rgba(255,255,255,0.8); }
+
+  /* LOCK */
   .lock-overlay { position: fixed; inset: 0; background: rgba(255,240,245,0.97); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 50; }
   .lock-overlay .lock-icon { font-size: 44px; color: #f06292; }
   .lock-overlay p { font-size: 14px; color: #880e4f; }
@@ -56,57 +84,58 @@
   .lock-overlay input:focus { border-color: #f06292; }
   .unlock-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 30px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; }
   .err-msg { font-size: 12px; color: #c2185b; min-height: 18px; }
-  .loading { text-align: center; padding: 2rem; color: #f06292; font-size: 13px; }
-  .info-box { background: rgba(255,255,255,0.65); border: 1.5px solid rgba(240,98,146,0.2); border-radius: 12px; padding: 10px 16px; margin-bottom: 1rem; font-size: 12px; color: #880e4f; display: flex; gap: 8px; align-items: flex-start; line-height: 1.6; }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #880e4f; color: #fff; padding: 9px 20px; border-radius: 20px; font-size: 13px; font-family: 'DM Sans', sans-serif; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: #f48fb1; font-size: 14px; }
 </style>
 </head>
 <body>
 
+<!-- GATE -->
+<div class="gate" id="gate">
+  <div class="gate-deco1"></div>
+  <div class="gate-deco2"></div>
+  <i class="ti ti-lock gate-icon"></i>
+  <div class="gate-title">Meus Fornecedores</div>
+  <div class="gate-sub">Digite a senha para entrar 🌸</div>
+  <input type="password" id="gate-input" placeholder="••••••" onkeydown="if(event.key==='Enter')tryGate()" />
+  <div class="gate-err" id="gate-err"></div>
+  <button class="gate-btn" onclick="tryGate()">Entrar ✨</button>
+</div>
+
+<!-- LOCK EDIÇÃO -->
 <div id="lock-overlay" class="lock-overlay" style="display:none">
   <i class="ti ti-lock lock-icon"></i>
-  <p>Digite a senha para editar</p>
+  <p>Senha de edição</p>
   <input type="password" id="pwd-input" placeholder="••••••" onkeydown="if(event.key==='Enter')tryUnlock()" />
   <div class="err-msg" id="err-msg"></div>
   <button class="unlock-btn" onclick="tryUnlock()">Entrar como editora</button>
 </div>
 
-<div class="page">
-  <div class="deco c1"></div>
-  <div class="deco c2"></div>
-  <div class="header">
-    <div class="badge">✦ lista de fornecedores ✦</div>
-    <div class="title">Lista Bolsas Coach</div>
-    <div class="subtitle" id="mode-subtitle">modo visualização 👀</div>
+<!-- MAIN -->
+<div class="page" id="main-page" style="display:none">
+  <div class="main-header">
+    <div class="deco1"></div>
+    <div class="badge">✦ meus fornecedores ✦</div>
+    <div class="main-title">Lista de Fornecedores</div>
+    <div class="main-sub" id="mode-sub">modo visualização 👀</div>
+    <div class="divider"><div class="divider-line"></div><i class="ti ti-heart" style="color:#f06292;font-size:15px"></i><div class="divider-line"></div></div>
   </div>
-  <div class="divider"><div class="divider-line"></div><i class="ti ti-heart" style="color:#f06292;font-size:16px"></i><div class="divider-line"></div></div>
-  <div class="mode-bar">
-    <div class="mode-label">
-      <i class="ti ti-eye" id="mode-icon" style="font-size:15px;color:#f06292"></i>
-      <span id="mode-label-text">Visualização</span>
-    </div>
-    <div class="mode-toggle">
+
+  <div class="top-bar">
+    <div class="mode-bar">
       <button class="mode-btn active" id="btn-view" onclick="setMode('view')">👀 Ver</button>
       <button class="mode-btn" id="btn-edit" onclick="requestEdit()">✏️ Editar</button>
     </div>
-  </div>
-  <div id="edit-info" class="info-box" style="display:none">
-    <i class="ti ti-info-circle" style="font-size:15px;color:#f06292;flex-shrink:0;margin-top:1px"></i>
-    <span>Você está no <strong>modo edição</strong>. Qualquer alteração salva automaticamente na nuvem e aparece pra todo mundo em tempo real! 🌸</span>
-  </div>
-  <div class="table-wrap">
-    <div class="col-headers">
-      <div class="col-header">✦ Nome</div>
-      <div class="col-header">🔗 Link</div>
-      <div class="col-header" style="opacity:0">ir</div>
-    </div>
-    <div class="rows" id="rows"><div class="loading">Carregando... 🌸</div></div>
-  </div>
-  <div class="footer">
-    <button class="add-btn" id="add-btn" onclick="addRow()" style="display:none">
-      <i class="ti ti-plus"></i> Nova linha
+    <button class="add-cat-btn" id="add-cat-btn" onclick="addCategory()" style="display:none">
+      <i class="ti ti-plus"></i> Nova categoria
     </button>
-    <span></span>
-    <span class="count-badge" id="count"></span>
+  </div>
+
+  <div class="cats-grid" id="cats-grid">
+    <div class="empty-state">Carregando... 🌸</div>
   </div>
 </div>
 
@@ -114,7 +143,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, orderBy, query, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAFDh2Qlnn8-LGbKfz_4dXeorF4kh7Pfec",
@@ -127,40 +156,84 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const colRef = collection(db, "lista");
+
+  const GATE_PASSWORD = 'Maltez';
   const EDITOR_PASSWORD = 'minhalista123';
   let isEditor = false;
-  let rows = [];
   let editMode = false;
+  let categories = [];
+  let collapsed = {};
 
-  const q = query(colRef, orderBy("ordem"));
-  onSnapshot(q, (snapshot) => {
-    rows = [];
-    snapshot.forEach(d => rows.push({ id: d.id, ...d.data() }));
-    if (rows.length === 0 && isEditor) addEmptyRows();
-    renderRows();
-  }, () => {
-    document.getElementById('rows').innerHTML = '<div class="loading">Nenhum item ainda. Entre como editora para adicionar! 🌸</div>';
-  });
+  if (sessionStorage.getItem('gate_ok') === '1') showMain();
 
-  function addEmptyRows() {
-    for (let i = 0; i < 5; i++) addDoc(colRef, { name: '', link: '', ordem: i });
+  window.tryGate = () => {
+    const val = document.getElementById('gate-input').value;
+    if (val === GATE_PASSWORD) {
+      sessionStorage.setItem('gate_ok', '1');
+      showMain();
+    } else {
+      document.getElementById('gate-err').textContent = 'Senha incorreta 💔';
+      document.getElementById('gate-input').value = '';
+    }
   }
 
-  window.addRow = async () => {
-    await addDoc(colRef, { name: '', link: '', ordem: rows.length });
+  function showMain() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('main-page').style.display = 'block';
+    startFirebase();
   }
 
-  window.updateRow = (id, field, value) => {
-    clearTimeout(window._t);
-    window._t = setTimeout(async () => {
-      await updateDoc(doc(db, 'lista', id), { [field]: value });
-      showToast('✓ Salvo na nuvem!');
+  function startFirebase() {
+    const catsRef = collection(db, 'categorias');
+    const q = query(catsRef, orderBy('ordem'));
+    onSnapshot(q, async (snap) => {
+      categories = [];
+      for (const d of snap.docs) {
+        const itemsSnap = await getDocs(query(collection(db, 'categorias', d.id, 'items'), orderBy('ordem')));
+        const items = itemsSnap.docs.map(i => ({ id: i.id, ...i.data() }));
+        categories.push({ id: d.id, ...d.data(), items });
+      }
+      render();
+    });
+  }
+
+  window.addCategory = async () => {
+    await addDoc(collection(db, 'categorias'), { name: 'Nova categoria', ordem: categories.length });
+  }
+
+  window.deleteCategory = async (catId) => {
+    if (!confirm('Deletar essa categoria e todos os itens?')) return;
+    const itemsSnap = await getDocs(collection(db, 'categorias', catId, 'items'));
+    for (const d of itemsSnap.docs) await deleteDoc(d.ref);
+    await deleteDoc(doc(db, 'categorias', catId));
+  }
+
+  window.updateCatName = (catId, value) => {
+    clearTimeout(window._cn);
+    window._cn = setTimeout(async () => {
+      await updateDoc(doc(db, 'categorias', catId), { name: value });
+    }, 700);
+  }
+
+  window.addItem = async (catId, currentLen) => {
+    await addDoc(collection(db, 'categorias', catId, 'items'), { name: '', link: '', ordem: currentLen });
+  }
+
+  window.updateItem = (catId, itemId, field, value) => {
+    clearTimeout(window['_it_'+itemId]);
+    window['_it_'+itemId] = setTimeout(async () => {
+      await updateDoc(doc(db, 'categorias', catId, 'items', itemId), { [field]: value });
+      showToast('✓ Salvo!');
     }, 800);
   }
 
-  window.removeRow = async (id) => {
-    await deleteDoc(doc(db, 'lista', id));
+  window.deleteItem = async (catId, itemId) => {
+    await deleteDoc(doc(db, 'categorias', catId, 'items', itemId));
+  }
+
+  window.toggleCollapse = (catId) => {
+    collapsed[catId] = !collapsed[catId];
+    render();
   }
 
   window.requestEdit = () => {
@@ -176,7 +249,6 @@
       document.getElementById('lock-overlay').style.display = 'none';
       document.getElementById('pwd-input').value = '';
       document.getElementById('err-msg').textContent = '';
-      if (rows.length === 0) addEmptyRows();
       setMode('edit');
     } else {
       document.getElementById('err-msg').textContent = 'Senha incorreta 💔';
@@ -188,47 +260,69 @@
     editMode = mode === 'edit' && isEditor;
     document.getElementById('btn-view').classList.toggle('active', !editMode);
     document.getElementById('btn-edit').classList.toggle('active', editMode);
-    document.getElementById('mode-icon').className = editMode ? 'ti ti-edit' : 'ti ti-eye';
-    document.getElementById('mode-label-text').textContent = editMode ? 'Edição' : 'Visualização';
-    document.getElementById('mode-subtitle').textContent = editMode ? 'modo edição ✏️' : 'modo visualização 👀';
-    document.getElementById('edit-info').style.display = editMode ? 'flex' : 'none';
-    document.getElementById('add-btn').style.display = editMode ? 'inline-flex' : 'none';
-    renderRows();
+    document.getElementById('mode-sub').textContent = editMode ? 'modo edição ✏️' : 'modo visualização 👀';
+    document.getElementById('add-cat-btn').style.display = editMode ? 'inline-flex' : 'none';
+    render();
   }
 
-  function renderRows() {
-    const container = document.getElementById('rows');
-    if (!rows.length) { container.innerHTML = '<div class="loading">Nenhum item ainda 🌸</div>'; updateCount(); return; }
-    container.innerHTML = '';
-    rows.forEach(r => {
-      const div = document.createElement('div');
-      div.className = 'row';
-      if (editMode) {
-        div.innerHTML = `
-          <div class="name-cell"><input type="text" placeholder="Nome..." value="${esc(r.name)}" oninput="updateRow('${r.id}','name',this.value)"/></div>
-          <div class="link-cell"><input type="url" placeholder="https://..." value="${esc(r.link)}" oninput="updateRow('${r.id}','link',this.value)"/></div>
-          <div class="row-actions">
-            <button class="go-btn" onclick="openLink('${esc(r.link)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>
-            <button class="del-btn" onclick="removeRow('${r.id}')" aria-label="Remover"><i class="ti ti-x"></i></button>
-          </div>`;
-      } else {
-        const url = r.link ? (r.link.startsWith('http') ? r.link : 'https://'+r.link) : '';
-        div.innerHTML = `
-          <div class="name-text">${esc(r.name)||'<span style="color:#f48fb1;font-style:italic">—</span>'}</div>
-          <div class="link-text">${url?`<a href="${esc(url)}" target="_blank">${esc(r.link)}</a>`:'<span style="color:#f48fb1">—</span>'}</div>
-          <div class="row-actions">${url?`<button class="go-btn" onclick="openLink('${esc(url)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>`:'<span style="width:30px"></span>'}</div>`;
-      }
-      container.appendChild(div);
+  function render() {
+    const grid = document.getElementById('cats-grid');
+    if (!categories.length) {
+      grid.innerHTML = `<div class="empty-state">${editMode ? 'Clique em "+ Nova categoria" para começar! 🌸' : 'Nenhuma categoria ainda 🌸'}</div>`;
+      return;
+    }
+    grid.innerHTML = '';
+    categories.forEach(cat => {
+      const isCollapsed = collapsed[cat.id];
+      const filledItems = cat.items.filter(i => i.name || i.link).length;
+      const card = document.createElement('div');
+      card.className = 'cat-card';
+      card.innerHTML = `
+        <div class="cat-header" onclick="toggleCollapse('${cat.id}')">
+          <div class="cat-name">
+            <i class="ti ti-tag" style="font-size:15px;opacity:0.8"></i>
+            ${editMode
+              ? `<input class="cat-name-input" value="${esc(cat.name)}" onclick="event.stopPropagation()" oninput="updateCatName('${cat.id}',this.value)" placeholder="Nome da categoria"/>`
+              : esc(cat.name)
+            }
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="cat-count">${filledItems} ${filledItems===1?'item':'itens'}</span>
+            ${editMode ? `<button class="cat-icon-btn" onclick="event.stopPropagation();deleteCategory('${cat.id}')" aria-label="Deletar categoria"><i class="ti ti-trash"></i></button>` : ''}
+            <i class="ti ${isCollapsed ? 'ti-chevron-down' : 'ti-chevron-up'}" style="color:#fff;font-size:14px"></i>
+          </div>
+        </div>
+        <div class="cat-body ${isCollapsed ? 'collapsed' : ''}">
+          ${cat.items.length === 0 && !editMode ? '<div style="text-align:center;padding:1rem;color:#f48fb1;font-size:12px">Nenhum item ainda</div>' : ''}
+          ${cat.items.map(item => renderItem(cat.id, item)).join('')}
+          ${editMode ? `<button class="add-item-btn" onclick="addItem('${cat.id}', ${cat.items.length})"><i class="ti ti-plus" style="font-size:12px"></i> Adicionar fornecedor</button>` : ''}
+        </div>`;
+      grid.appendChild(card);
     });
-    updateCount();
+  }
+
+  function renderItem(catId, item) {
+    if (editMode) {
+      return `<div class="item-row">
+        <input type="text" placeholder="Nome..." value="${esc(item.name)}" oninput="updateItem('${catId}','${item.id}','name',this.value)"/>
+        <input type="url" placeholder="https://..." value="${esc(item.link)}" oninput="updateItem('${catId}','${item.id}','link',this.value)"/>
+        <div class="item-actions">
+          <button class="go-btn" onclick="openLink('${esc(item.link)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>
+          <button class="del-btn" onclick="deleteItem('${catId}','${item.id}')" aria-label="Remover"><i class="ti ti-x"></i></button>
+        </div>
+      </div>`;
+    } else {
+      if (!item.name && !item.link) return '';
+      const url = item.link ? (item.link.startsWith('http') ? item.link : 'https://'+item.link) : '';
+      return `<div class="item-row">
+        <div class="item-name-text">${esc(item.name)||'—'}</div>
+        <div class="item-link-text">${url ? `<a href="${esc(url)}" target="_blank">${esc(item.link)}</a>` : '<span style="color:#f48fb1">—</span>'}</div>
+        <div class="item-actions">${url ? `<button class="go-btn" onclick="openLink('${esc(url)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>` : '<span style="width:26px"></span>'}</div>
+      </div>`;
+    }
   }
 
   window.openLink = (url) => { if (url) window.open(url, '_blank'); }
-
-  function updateCount() {
-    const n = rows.filter(r => r.name || r.link).length;
-    document.getElementById('count').textContent = n ? n+(n===1?' item':' itens')+' 🌸' : '';
-  }
 
   function showToast(msg) {
     const t = document.getElementById('toast');
