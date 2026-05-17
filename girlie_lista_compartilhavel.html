@@ -1,124 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Fornecedores ✨</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { min-height: 100vh; background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 40%, #f8bbda 100%); font-family: 'DM Sans', sans-serif; }
-
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{min-height:100vh;background:linear-gradient(135deg,#fff0f5 0%,#fce4ec 40%,#f8bbda 100%);font-family:'DM Sans',sans-serif;}
   /* GATE */
-  .gate { position: fixed; inset: 0; background: linear-gradient(135deg, #fff0f5, #fce4ec, #f8bbda); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; z-index: 100; }
-  .gate-deco1 { position: absolute; width: 300px; height: 300px; background: #f48fb1; border-radius: 50%; opacity: 0.15; top: -100px; right: -80px; pointer-events: none; }
-  .gate-deco2 { position: absolute; width: 200px; height: 200px; background: #ce93d8; border-radius: 50%; opacity: 0.15; bottom: -70px; left: -60px; pointer-events: none; }
-  .gate-icon { font-size: 52px; color: #f06292; }
-  .gate-title { font-family: 'Playfair Display', serif; font-size: 28px; color: #880e4f; font-weight: 600; }
-  .gate-sub { font-size: 13px; color: #c2185b; opacity: 0.8; }
-  .gate input { border: 2px solid rgba(240,98,146,0.3); border-radius: 14px; padding: 12px 20px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: #880e4f; outline: none; text-align: center; letter-spacing: 3px; background: #fff; width: 240px; transition: border 0.2s; }
-  .gate input:focus { border-color: #f06292; }
-  .gate-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 24px; padding: 12px 36px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 4px 16px rgba(233,30,140,0.3); transition: transform 0.15s; }
-  .gate-btn:hover { transform: translateY(-2px); }
-  .gate-err { font-size: 12px; color: #c2185b; min-height: 18px; }
-
+  .gate{position:fixed;inset:0;background:linear-gradient(135deg,#fff0f5,#fce4ec,#f8bbda);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:100;}
+  .gate-deco{position:absolute;border-radius:50%;opacity:.15;pointer-events:none;}
+  .gate-icon{font-size:52px;color:#f06292;}
+  .gate-title{font-family:'Playfair Display',serif;font-size:28px;color:#880e4f;font-weight:600;}
+  .gate-sub{font-size:13px;color:#c2185b;opacity:.8;}
+  .gate input{border:2px solid rgba(240,98,146,.3);border-radius:14px;padding:12px 20px;font-size:15px;font-family:'DM Sans',sans-serif;color:#880e4f;outline:none;text-align:center;letter-spacing:3px;background:#fff;width:240px;transition:border .2s;}
+  .gate input:focus{border-color:#f06292;}
+  .gate-btn{background:linear-gradient(90deg,#e91e8c,#f06292);color:#fff;border:none;border-radius:24px;padding:12px 36px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(233,30,140,.3);transition:transform .15s;}
+  .gate-btn:hover{transform:translateY(-2px);}
+  .gate-err{font-size:12px;color:#c2185b;min-height:18px;}
   /* LOCK */
-  .lock-overlay { position: fixed; inset: 0; background: rgba(255,240,245,0.97); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; z-index: 50; }
-  .lock-overlay .lock-icon { font-size: 44px; color: #f06292; }
-  .lock-overlay p { font-size: 14px; color: #880e4f; }
-  .lock-overlay input { border: 2px solid rgba(240,98,146,0.3); border-radius: 12px; padding: 10px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: #880e4f; outline: none; text-align: center; letter-spacing: 2px; background: #fff; width: 220px; }
-  .lock-overlay input:focus { border-color: #f06292; }
-  .unlock-btn { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 10px 30px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; }
-  .err-msg { font-size: 12px; color: #c2185b; min-height: 18px; }
-
+  .lock-overlay{position:fixed;inset:0;background:rgba(255,240,245,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:50;}
+  .lock-icon{font-size:44px;color:#f06292;}
+  .lock-overlay p{font-size:14px;color:#880e4f;}
+  .lock-overlay input{border:2px solid rgba(240,98,146,.3);border-radius:12px;padding:10px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:#880e4f;outline:none;text-align:center;letter-spacing:2px;background:#fff;width:220px;}
+  .lock-overlay input:focus{border-color:#f06292;}
+  .unlock-btn{background:linear-gradient(90deg,#e91e8c,#f06292);color:#fff;border:none;border-radius:20px;padding:10px 30px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;}
+  .err-msg{font-size:12px;color:#c2185b;min-height:18px;}
   /* TOAST */
-  .toast { position: fixed; bottom: 24px; right: 24px; background: #880e4f; color: #fff; padding: 9px 20px; border-radius: 20px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; font-family: 'DM Sans', sans-serif; }
-  .toast.show { opacity: 1; }
-
+  .toast{position:fixed;bottom:24px;right:24px;background:#880e4f;color:#fff;padding:9px 20px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;font-family:'DM Sans',sans-serif;}
+  .toast.show{opacity:1;}
   /* HEADER */
-  .app-header { background: linear-gradient(135deg, #fff0f5, #fce4ec); padding: 2rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 2px 16px rgba(194,24,91,0.07); }
-  .app-header .deco1 { position: absolute; width: 220px; height: 220px; background: #f48fb1; border-radius: 50%; opacity: 0.13; top: -70px; right: -50px; pointer-events: none; }
-  .badge { display: inline-block; background: #f06292; color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; padding: 5px 18px; border-radius: 20px; margin-bottom: 10px; }
-  .app-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: #880e4f; margin-bottom: 4px; }
-  .app-sub { font-size: 13px; color: #c2185b; opacity: 0.75; }
-
-  /* TOP BAR */
-  .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; flex-wrap: wrap; gap: 10px; }
-  .mode-bar { display: flex; gap: 6px; background: rgba(255,255,255,0.7); border-radius: 12px; padding: 6px 10px; border: 1.5px solid rgba(240,98,146,0.18); }
-  .mode-btn { font-size: 11px; font-family: 'DM Sans', sans-serif; padding: 5px 14px; border-radius: 20px; border: 1.5px solid rgba(240,98,146,0.3); cursor: pointer; background: transparent; color: #c2185b; font-weight: 500; transition: all 0.2s; }
-  .mode-btn.active { background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border-color: transparent; }
-  .pink-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg,#e91e8c,#f06292); color: #fff; border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 3px 10px rgba(233,30,140,0.2); transition: transform 0.15s; }
-  .pink-btn:hover { transform: translateY(-1px); }
-
+  .app-header{background:linear-gradient(135deg,#fff0f5,#fce4ec);padding:1.8rem 2rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 16px rgba(194,24,91,.07);}
+  .hd{position:absolute;width:220px;height:220px;background:#f48fb1;border-radius:50%;opacity:.13;top:-70px;right:-50px;pointer-events:none;}
+  .badge{display:inline-block;background:#f06292;color:#fff;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:5px 18px;border-radius:20px;margin-bottom:10px;}
+  .app-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:#880e4f;margin-bottom:4px;}
+  .app-sub{font-size:13px;color:#c2185b;opacity:.75;}
+  /* TOPBAR */
+  .top-bar{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;flex-wrap:wrap;gap:10px;}
+  .mode-bar{display:flex;gap:6px;background:rgba(255,255,255,.7);border-radius:12px;padding:6px 10px;border:1.5px solid rgba(240,98,146,.18);}
+  .mode-btn{font-size:11px;font-family:'DM Sans',sans-serif;padding:5px 14px;border-radius:20px;border:1.5px solid rgba(240,98,146,.3);cursor:pointer;background:transparent;color:#c2185b;font-weight:500;transition:all .2s;}
+  .mode-btn.active{background:linear-gradient(90deg,#e91e8c,#f06292);color:#fff;border-color:transparent;}
+  .pink-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#e91e8c,#f06292);color:#fff;border:none;border-radius:20px;padding:9px 18px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;box-shadow:0 3px 10px rgba(233,30,140,.2);transition:transform .15s;}
+  .pink-btn:hover{transform:translateY(-1px);}
   /* BREADCRUMB */
-  .breadcrumb { display: flex; align-items: center; gap: 8px; padding: 0.6rem 1.5rem; font-size: 13px; color: #c2185b; flex-wrap: wrap; }
-  .breadcrumb span { cursor: pointer; opacity: 0.7; transition: opacity 0.15s; }
-  .breadcrumb span:hover { opacity: 1; text-decoration: underline; }
-  .breadcrumb .sep { opacity: 0.4; }
-  .breadcrumb .current { opacity: 1; font-weight: 500; }
-
+  .breadcrumb{display:flex;align-items:center;gap:8px;padding:.5rem 1.5rem 0;font-size:13px;color:#c2185b;flex-wrap:wrap;}
+  .breadcrumb .bc-link{cursor:pointer;opacity:.65;transition:opacity .15s;}
+  .breadcrumb .bc-link:hover{opacity:1;text-decoration:underline;}
+  .breadcrumb .bc-sep{opacity:.4;}
+  .breadcrumb .bc-cur{font-weight:500;}
   /* CONTENT */
-  .content { padding: 0 1.5rem 2rem; }
-
-  /* SETOR CARDS (nível 1) */
-  .setores-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-  .setor-card { background: rgba(255,255,255,0.8); border-radius: 18px; border: 1.5px solid rgba(240,98,146,0.15); box-shadow: 0 4px 18px rgba(194,24,91,0.07); overflow: hidden; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-  .setor-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(194,24,91,0.14); }
-  .setor-card-header { background: linear-gradient(90deg,#f06292,#e91e8c); padding: 1.2rem 1rem; display: flex; align-items: center; justify-content: space-between; }
-  .setor-card-title { font-family: 'Playfair Display', serif; font-size: 17px; color: #fff; font-weight: 600; }
-  .setor-card-count { font-size: 11px; color: rgba(255,255,255,0.8); }
-  .setor-card-body { padding: 0.9rem 1rem; display: flex; flex-direction: column; gap: 5px; }
-  .setor-card-tag { font-size: 12px; color: #880e4f; background: rgba(240,98,146,0.1); border-radius: 8px; padding: 4px 10px; display: inline-block; }
-  .setor-card-more { font-size: 11px; color: #f06292; opacity: 0.7; padding: 2px 0; }
-  .setor-card-empty { font-size: 12px; color: #f48fb1; font-style: italic; }
-
-  /* MARCA CARDS (nível 2) */
-  .marcas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-  .marca-card { background: rgba(255,255,255,0.8); border-radius: 16px; border: 1.5px solid rgba(240,98,146,0.15); box-shadow: 0 3px 14px rgba(194,24,91,0.06); overflow: hidden; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-  .marca-card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(194,24,91,0.12); }
-  .marca-card-header { background: linear-gradient(90deg,#f48fb1,#f06292); padding: 1rem; display: flex; align-items: center; justify-content: space-between; }
-  .marca-card-title { font-family: 'Playfair Display', serif; font-size: 15px; color: #fff; font-weight: 600; }
-  .marca-card-count { font-size: 11px; color: rgba(255,255,255,0.85); }
-  .marca-card-body { padding: 0.8rem 1rem; font-size: 12px; color: #880e4f; }
-  .marca-card-preview { opacity: 0.7; font-style: italic; }
-
-  /* FORNECEDORES (nível 3) */
-  .fornec-list { display: flex; flex-direction: column; gap: 0; background: rgba(255,255,255,0.75); border-radius: 16px; border: 1.5px solid rgba(240,98,146,0.15); overflow: hidden; box-shadow: 0 3px 14px rgba(194,24,91,0.06); }
-  .fornec-row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 10px; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(240,98,146,0.09); transition: background 0.15s; }
-  .fornec-row:last-child { border-bottom: none; }
-  .fornec-row:hover { background: rgba(244,143,177,0.08); }
-  .fornec-row input { width: 100%; border: 1.5px solid rgba(240,98,146,0.2); border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.9); color: #880e4f; outline: none; transition: border 0.2s; }
-  .fornec-row input::placeholder { color: #f48fb1; }
-  .fornec-row input:focus { border-color: #f06292; background: #fff; }
-  .fornec-name { font-size: 13px; color: #880e4f; font-weight: 500; }
-  .fornec-link a { font-size: 12px; color: #7b1fa2; text-decoration: none; word-break: break-all; }
-  .fornec-link a:hover { text-decoration: underline; }
-  .row-actions { display: flex; gap: 4px; }
-  .go-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: linear-gradient(135deg,#f48fb1,#f06292); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: transform 0.15s; flex-shrink: 0; }
-  .go-btn:hover { transform: scale(1.1); }
-  .del-btn { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(240,98,146,0.3); background: transparent; color: #f48fb1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all 0.15s; flex-shrink: 0; }
-  .del-btn:hover { background: #fce4ec; color: #c2185b; }
-
-  /* EDIT NAME INPUT inline */
-  .edit-name-input { font-family: 'Playfair Display', serif; font-size: 15px; background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 4px 10px; color: #fff; outline: none; width: 140px; }
-  .edit-name-input::placeholder { color: rgba(255,255,255,0.65); }
-
-  .section-title { font-family: 'Playfair Display', serif; font-size: 20px; color: #880e4f; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
-  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, #f48fb1, transparent); }
-  .empty-hint { text-align: center; padding: 2.5rem; color: #f48fb1; font-size: 13px; }
-  .add-dashed { display: flex; align-items: center; justify-content: center; gap: 6px; border: 1.5px dashed rgba(240,98,146,0.35); border-radius: 10px; padding: 8px; font-size: 12px; color: #f06292; cursor: pointer; background: none; width: 100%; font-family: 'DM Sans', sans-serif; transition: background 0.15s; margin-top: 10px; }
-  .add-dashed:hover { background: rgba(240,98,146,0.06); }
-  .edit-card-actions { display: flex; gap: 6px; }
-  .edit-icon-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.4); background: transparent; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: background 0.15s; }
-  .edit-icon-btn:hover { background: rgba(255,255,255,0.2); }
+  .content{padding:1rem 1.5rem 2rem;}
+  /* GRID SETORES */
+  .setores-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+  .setor-card{background:rgba(255,255,255,.8);border-radius:18px;border:1.5px solid rgba(240,98,146,.15);box-shadow:0 4px 18px rgba(194,24,91,.07);overflow:hidden;transition:transform .15s,box-shadow .15s;}
+  .setor-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(194,24,91,.14);}
+  .setor-hd{background:linear-gradient(90deg,#f06292,#e91e8c);padding:1.1rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .setor-title{font-family:'Playfair Display',serif;font-size:16px;color:#fff;font-weight:600;}
+  .setor-body{padding:.8rem 1rem;cursor:pointer;}
+  .setor-tag{font-size:12px;color:#880e4f;background:rgba(240,98,146,.1);border-radius:8px;padding:3px 10px;display:inline-block;margin:2px 2px;}
+  .setor-more{font-size:11px;color:#f06292;opacity:.7;padding:4px 2px;display:block;}
+  .setor-empty{font-size:12px;color:#f48fb1;font-style:italic;}
+  /* GRID MARCAS */
+  .marcas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+  .marca-card{background:rgba(255,255,255,.8);border-radius:16px;border:1.5px solid rgba(240,98,146,.15);box-shadow:0 3px 14px rgba(194,24,91,.06);overflow:hidden;transition:transform .15s,box-shadow .15s;cursor:pointer;}
+  .marca-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(194,24,91,.12);}
+  .marca-hd{background:linear-gradient(90deg,#f48fb1,#f06292);padding:1rem;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .marca-title{font-family:'Playfair Display',serif;font-size:15px;color:#fff;font-weight:600;}
+  .marca-body{padding:.7rem 1rem;font-size:12px;color:#880e4f;opacity:.75;}
+  /* FORNECEDORES */
+  .sec-title{font-family:'Playfair Display',serif;font-size:20px;color:#880e4f;margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+  .sec-line{flex:1;height:1px;background:linear-gradient(to right,#f48fb1,transparent);}
+  .fornec-wrap{background:rgba(255,255,255,.75);border-radius:16px;border:1.5px solid rgba(240,98,146,.15);overflow:hidden;box-shadow:0 3px 14px rgba(194,24,91,.06);}
+  .fornec-header-row{display:grid;grid-template-columns:1fr 2fr auto;gap:10px;padding:10px 16px;background:linear-gradient(90deg,#f06292,#e91e8c);}
+  .fornec-col{font-size:11px;letter-spacing:1.5px;color:#fff;text-transform:uppercase;font-weight:500;}
+  .fornec-row{display:grid;grid-template-columns:1fr 2fr auto;gap:10px;align-items:center;padding:9px 16px;border-bottom:1px solid rgba(240,98,146,.09);transition:background .15s;}
+  .fornec-row:last-child{border-bottom:none;}
+  .fornec-row:hover{background:rgba(244,143,177,.08);}
+  .fornec-row input{width:100%;border:1.5px solid rgba(240,98,146,.2);border-radius:8px;padding:6px 10px;font-size:12.5px;font-family:'DM Sans',sans-serif;background:rgba(255,255,255,.9);color:#880e4f;outline:none;transition:border .2s;}
+  .fornec-row input::placeholder{color:#f48fb1;}
+  .fornec-row input:focus{border-color:#f06292;background:#fff;}
+  .f-name{font-size:13px;color:#880e4f;font-weight:500;}
+  .f-link a{font-size:12px;color:#7b1fa2;text-decoration:none;word-break:break-all;}
+  .f-link a:hover{text-decoration:underline;}
+  .row-acts{display:flex;gap:4px;}
+  .go-btn{width:28px;height:28px;border-radius:50%;border:none;background:linear-gradient(135deg,#f48fb1,#f06292);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .15s;flex-shrink:0;}
+  .go-btn:hover{transform:scale(1.1);}
+  .del-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(240,98,146,.3);background:transparent;color:#f48fb1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .15s;flex-shrink:0;}
+  .del-btn:hover{background:#fce4ec;color:#c2185b;}
+  /* EDIT INPUTS inline no header */
+  .hd-input{font-family:'DM Sans',sans-serif;font-size:14px;background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.45);border-radius:8px;padding:5px 10px;color:#fff;outline:none;width:100%;}
+  .hd-input::placeholder{color:rgba(255,255,255,.65);}
+  .icon-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:background .15s;flex-shrink:0;}
+  .icon-btn:hover{background:rgba(255,255,255,.2);}
+  .add-dashed{display:flex;align-items:center;justify-content:center;gap:6px;border:1.5px dashed rgba(240,98,146,.35);border-radius:10px;padding:8px;font-size:12px;color:#f06292;cursor:pointer;background:none;width:100%;font-family:'DM Sans',sans-serif;transition:background .15s;margin-top:8px;}
+  .add-dashed:hover{background:rgba(240,98,146,.06);}
+  .empty-hint{text-align:center;padding:2.5rem;color:#f48fb1;font-size:13px;}
+  .cnt{font-size:11px;color:rgba(255,255,255,.8);white-space:nowrap;}
 </style>
 </head>
 <body>
 
-<!-- GATE -->
 <div class="gate" id="gate">
-  <div class="gate-deco1"></div><div class="gate-deco2"></div>
+  <div class="gate-deco" style="width:300px;height:300px;background:#f48fb1;top:-100px;right:-80px;"></div>
+  <div class="gate-deco" style="width:200px;height:200px;background:#ce93d8;bottom:-70px;left:-60px;"></div>
   <i class="ti ti-lock gate-icon"></i>
   <div class="gate-title">Meus Fornecedores</div>
   <div class="gate-sub">Digite a senha para entrar 🌸</div>
@@ -127,7 +113,6 @@
   <button class="gate-btn" onclick="tryGate()">Entrar ✨</button>
 </div>
 
-<!-- LOCK EDIÇÃO -->
 <div id="lock-overlay" class="lock-overlay" style="display:none">
   <i class="ti ti-lock lock-icon"></i>
   <p>Senha de edição</p>
@@ -136,365 +121,336 @@
   <button class="unlock-btn" onclick="tryUnlock()">Entrar como editora</button>
 </div>
 
-<!-- MAIN -->
 <div id="main" style="display:none">
   <div class="app-header">
-    <div class="deco1"></div>
+    <div class="hd"></div>
     <div class="badge">✦ meus fornecedores ✦</div>
     <div class="app-title">Lista de Fornecedores</div>
     <div class="app-sub" id="mode-sub">modo visualização 👀</div>
   </div>
-
   <div class="top-bar">
     <div class="mode-bar">
       <button class="mode-btn active" id="btn-view" onclick="setMode('view')">👀 Ver</button>
       <button class="mode-btn" id="btn-edit" onclick="requestEdit()">✏️ Editar</button>
     </div>
-    <div id="top-actions"></div>
+    <div id="top-act"></div>
   </div>
-
-  <div class="breadcrumb" id="breadcrumb"></div>
+  <div class="breadcrumb" id="bc"></div>
   <div class="content" id="content"><div class="empty-hint">Carregando... 🌸</div></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAFDh2Qlnn8-LGbKfz_4dXeorF4kh7Pfec",
-    authDomain: "lista-fornecedores-bolsas.firebaseapp.com",
-    projectId: "lista-fornecedores-bolsas",
-    storageBucket: "lista-fornecedores-bolsas.firebasestorage.app",
-    messagingSenderId: "673865354929",
-    appId: "1:673865354929:web:aba5992d921be6d5b81c90"
-  };
+const firebaseConfig = {
+  apiKey:"AIzaSyAFDh2Qlnn8-LGbKfz_4dXeorF4kh7Pfec",
+  authDomain:"lista-fornecedores-bolsas.firebaseapp.com",
+  projectId:"lista-fornecedores-bolsas",
+  storageBucket:"lista-fornecedores-bolsas.firebasestorage.app",
+  messagingSenderId:"673865354929",
+  appId:"1:673865354929:web:aba5992d921be6d5b81c90"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const PWD = 'Maltez';
 
-  const PASSWORD = 'Maltez';
-  let isEditor = false;
-  let editMode = false;
+let isEditor = false, editMode = false;
+let nav = {level:0, setorId:null, marcaId:null};
+let setores={}, marcas={}, fornecs={};
 
-  // Estado navegação: null | {setorId} | {setorId, marcaId}
-  let nav = { level: 0, setorId: null, marcaId: null };
+if(sessionStorage.getItem('gate_ok')==='1') showMain();
 
-  // Dados em memória
-  let setores = {};   // id -> {id, name, ordem}
-  let marcas = {};    // setorId -> { id -> {id, name, ordem} }
-  let fornecs = {};   // setorId_marcaId -> [ {id, name, link, ordem} ]
-  let localNames = {};
-  let localVals = {};
-
-  if (sessionStorage.getItem('gate_ok') === '1') showMain();
-
-  window.tryGate = () => {
-    if (document.getElementById('gate-input').value === PASSWORD) {
-      sessionStorage.setItem('gate_ok','1'); showMain();
-    } else {
-      document.getElementById('gate-err').textContent = 'Senha incorreta 💔';
-      document.getElementById('gate-input').value = '';
-    }
+window.tryGate = ()=>{
+  if(document.getElementById('gate-input').value===PWD){
+    sessionStorage.setItem('gate_ok','1'); showMain();
+  } else {
+    document.getElementById('gate-err').textContent='Senha incorreta 💔';
+    document.getElementById('gate-input').value='';
   }
+};
 
-  function showMain() {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('main').style.display = 'block';
-    startFirebase();
-  }
-
-  function startFirebase() {
-    // Ouve setores
-    onSnapshot(query(collection(db,'setores'), orderBy('ordem')), snap => {
-      snap.docChanges().forEach(ch => {
-        if (ch.type === 'removed') { delete setores[ch.doc.id]; }
-        else { setores[ch.doc.id] = { id: ch.doc.id, ...ch.doc.data() }; }
-      });
-      // Para cada setor, ouve marcas
-      snap.docs.forEach(sd => {
-        if (!marcas[sd.id]) marcas[sd.id] = {};
-        onSnapshot(query(collection(db,'setores',sd.id,'marcas'), orderBy('ordem')), msnap => {
-          msnap.docChanges().forEach(ch => {
-            if (ch.type === 'removed') { delete marcas[sd.id][ch.doc.id]; delete fornecs[sd.id+'_'+ch.doc.id]; }
-            else { marcas[sd.id][ch.doc.id] = { id: ch.doc.id, ...ch.doc.data() }; }
-          });
-          // Para cada marca, ouve fornecedores
-          msnap.docs.forEach(md => {
-            const fkey = sd.id+'_'+md.id;
-            onSnapshot(query(collection(db,'setores',sd.id,'marcas',md.id,'fornecedores'), orderBy('ordem')), fsnap => {
-              fornecs[fkey] = fsnap.docs.map(d => ({ id: d.id, ...d.data() }));
-              render();
-            });
-          });
-          render();
+function showMain(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('main').style.display='block';
+  // Ouve setores
+  onSnapshot(query(collection(db,'setores'),orderBy('ordem')), snap=>{
+    snap.docChanges().forEach(ch=>{
+      if(ch.type==='removed') delete setores[ch.doc.id];
+      else setores[ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
+    });
+    // Ouve marcas de cada setor
+    snap.docs.forEach(sd=>{
+      if(!marcas[sd.id]) marcas[sd.id]={};
+      onSnapshot(query(collection(db,'setores',sd.id,'marcas'),orderBy('ordem')), msnap=>{
+        msnap.docChanges().forEach(ch=>{
+          if(ch.type==='removed'){ delete marcas[sd.id][ch.doc.id]; delete fornecs[sd.id+'_'+ch.doc.id]; }
+          else marcas[sd.id][ch.doc.id]={id:ch.doc.id,...ch.doc.data()};
         });
+        // Ouve fornecedores de cada marca
+        msnap.docs.forEach(md=>{
+          const fk=sd.id+'_'+md.id;
+          onSnapshot(query(collection(db,'setores',sd.id,'marcas',md.id,'fornecedores'),orderBy('ordem')), fsnap=>{
+            fornecs[fk]=fsnap.docs.map(d=>({id:d.id,...d.data()}));
+            if(nav.level===2 && nav.setorId===sd.id && nav.marcaId===md.id) renderFornecs();
+          });
+        });
+        if(nav.level===1 && nav.setorId===sd.id) renderMarcas();
+        else if(nav.level===0) renderSetores();
       });
-      render();
     });
-  }
+    if(nav.level===0) renderSetores();
+  });
+}
 
-  // ── NAVEGAÇÃO ──
-  window.goHome = () => { nav = { level: 0 }; render(); }
-  window.goSetor = (id) => { nav = { level: 1, setorId: id }; render(); }
-  window.goMarca = (setorId, marcaId) => { nav = { level: 2, setorId, marcaId }; render(); }
+// NAVEGAÇÃO
+window.goHome=()=>{ nav={level:0}; render(); };
+window.goSetor=(id)=>{ nav={level:1,setorId:id}; render(); };
+window.goMarca=(sid,mid)=>{ nav={level:2,setorId:sid,marcaId:mid}; render(); };
 
-  // ── CRUD SETOR ──
-  window.addSetor = async () => {
-    await addDoc(collection(db,'setores'), { name: 'Novo setor', ordem: Object.keys(setores).length });
-  }
-  window.deleteSetor = async (id) => {
-    if (!confirm('Deletar setor e tudo dentro?')) return;
-    await deleteDoc(doc(db,'setores',id));
-  }
-  window.saveSetorName = (id, val) => {
-    localNames['s_'+id] = val;
-    clearTimeout(window['_sn'+id]);
-    window['_sn'+id] = setTimeout(async () => { await updateDoc(doc(db,'setores',id),{name:val}); showToast('✓ Salvo!'); }, 800);
-  }
+// CRUD SETOR
+window.addSetor=async()=>{
+  await addDoc(collection(db,'setores'),{name:'Novo setor',ordem:Object.keys(setores).length});
+};
+window.deleteSetor=async(id)=>{
+  if(!confirm('Deletar setor e tudo dentro?')) return;
+  await deleteDoc(doc(db,'setores',id));
+};
+window.saveSetorName=(id,val)=>{
+  clearTimeout(window['_sn'+id]);
+  window['_sn'+id]=setTimeout(async()=>{ await updateDoc(doc(db,'setores',id),{name:val}); showToast('✓ Salvo!'); },900);
+};
 
-  // ── CRUD MARCA ──
-  window.addMarca = async (setorId) => {
-    const len = Object.keys(marcas[setorId]||{}).length;
-    await addDoc(collection(db,'setores',setorId,'marcas'), { name: 'Nova marca', ordem: len });
-  }
-  window.deleteMarca = async (setorId, marcaId) => {
-    if (!confirm('Deletar marca e todos os fornecedores?')) return;
-    await deleteDoc(doc(db,'setores',setorId,'marcas',marcaId));
-  }
-  window.saveMarcaName = (setorId, marcaId, val) => {
-    localNames['m_'+marcaId] = val;
-    clearTimeout(window['_mn'+marcaId]);
-    window['_mn'+marcaId] = setTimeout(async () => { await updateDoc(doc(db,'setores',setorId,'marcas',marcaId),{name:val}); showToast('✓ Salvo!'); }, 800);
-  }
+// CRUD MARCA
+window.addMarca=async(sid)=>{
+  const len=Object.keys(marcas[sid]||{}).length;
+  await addDoc(collection(db,'setores',sid,'marcas'),{name:'Nova marca',ordem:len});
+};
+window.deleteMarca=async(sid,mid)=>{
+  if(!confirm('Deletar marca e fornecedores?')) return;
+  await deleteDoc(doc(db,'setores',sid,'marcas',mid));
+};
+window.saveMarcaName=(sid,mid,val)=>{
+  clearTimeout(window['_mn'+mid]);
+  window['_mn'+mid]=setTimeout(async()=>{ await updateDoc(doc(db,'setores',sid,'marcas',mid),{name:val}); showToast('✓ Salvo!'); },900);
+};
 
-  // ── CRUD FORNECEDOR ──
-  window.addFornec = async (setorId, marcaId) => {
-    const fkey = setorId+'_'+marcaId;
-    const len = (fornecs[fkey]||[]).length;
-    await addDoc(collection(db,'setores',setorId,'marcas',marcaId,'fornecedores'), { name:'', link:'', ordem: len });
-  }
-  window.deleteFornec = async (setorId, marcaId, fid) => {
-    await deleteDoc(doc(db,'setores',setorId,'marcas',marcaId,'fornecedores',fid));
-  }
-  window.saveFornec = (setorId, marcaId, fid, field, val) => {
-    const k = setorId+'_'+marcaId+'_'+fid+'_'+field;
-    localVals[k] = val;
-    clearTimeout(window['_fv'+k]);
-    window['_fv'+k] = setTimeout(async () => {
-      await updateDoc(doc(db,'setores',setorId,'marcas',marcaId,'fornecedores',fid),{[field]:val});
-      showToast('✓ Salvo!');
-    }, 800);
-  }
+// CRUD FORNECEDOR
+window.addFornec=async(sid,mid)=>{
+  const fk=sid+'_'+mid;
+  await addDoc(collection(db,'setores',sid,'marcas',mid,'fornecedores'),{name:'',link:'',ordem:(fornecs[fk]||[]).length});
+};
+window.deleteFornec=async(sid,mid,fid)=>{
+  await deleteDoc(doc(db,'setores',sid,'marcas',mid,'fornecedores',fid));
+};
+window.saveFornec=(sid,mid,fid,field,val)=>{
+  const k=`${sid}_${mid}_${fid}_${field}`;
+  clearTimeout(window['_fv'+k]);
+  window['_fv'+k]=setTimeout(async()=>{
+    await updateDoc(doc(db,'setores',sid,'marcas',mid,'fornecedores',fid),{[field]:val});
+    showToast('✓ Salvo!');
+  },900);
+};
 
-  // ── MODE ──
-  window.requestEdit = () => {
-    if (isEditor) { setMode('edit'); return; }
-    document.getElementById('lock-overlay').style.display = 'flex';
-    setTimeout(() => document.getElementById('pwd-input').focus(), 100);
+// MODE
+window.requestEdit=()=>{
+  if(isEditor){setMode('edit');return;}
+  document.getElementById('lock-overlay').style.display='flex';
+  setTimeout(()=>document.getElementById('pwd-input').focus(),100);
+};
+window.tryUnlock=()=>{
+  if(document.getElementById('pwd-input').value===PWD){
+    isEditor=true;
+    document.getElementById('lock-overlay').style.display='none';
+    document.getElementById('pwd-input').value='';
+    document.getElementById('err-msg').textContent='';
+    setMode('edit');
+  } else {
+    document.getElementById('err-msg').textContent='Senha incorreta 💔';
+    document.getElementById('pwd-input').value='';
   }
-  window.tryUnlock = () => {
-    if (document.getElementById('pwd-input').value === PASSWORD) {
-      isEditor = true;
-      document.getElementById('lock-overlay').style.display = 'none';
-      document.getElementById('pwd-input').value = '';
-      document.getElementById('err-msg').textContent = '';
-      setMode('edit');
-    } else {
-      document.getElementById('err-msg').textContent = 'Senha incorreta 💔';
-      document.getElementById('pwd-input').value = '';
-    }
-  }
-  window.setMode = (mode) => {
-    editMode = mode === 'edit' && isEditor;
-    document.getElementById('btn-view').classList.toggle('active', !editMode);
-    document.getElementById('btn-edit').classList.toggle('active', editMode);
-    document.getElementById('mode-sub').textContent = editMode ? 'modo edição ✏️' : 'modo visualização 👀';
-    render();
-  }
+};
+window.setMode=(mode)=>{
+  editMode=mode==='edit'&&isEditor;
+  document.getElementById('btn-view').classList.toggle('active',!editMode);
+  document.getElementById('btn-edit').classList.toggle('active',editMode);
+  document.getElementById('mode-sub').textContent=editMode?'modo edição ✏️':'modo visualização 👀';
+  render();
+};
 
-  // ── RENDER ──
-  function render() {
-    renderBreadcrumb();
-    renderTopActions();
-    if (nav.level === 0) renderSetores();
-    else if (nav.level === 1) renderMarcas();
-    else renderFornecs();
-  }
+function render(){
+  renderBreadcrumb();
+  renderTopAct();
+  if(nav.level===0) renderSetores();
+  else if(nav.level===1) renderMarcas();
+  else renderFornecs();
+}
 
-  function renderBreadcrumb() {
-    const bc = document.getElementById('breadcrumb');
-    if (nav.level === 0) { bc.innerHTML = ''; return; }
-    let html = `<span onclick="goHome()">🏠 Início</span>`;
-    if (nav.level >= 1) {
-      const s = setores[nav.setorId];
-      html += `<span class="sep">›</span>`;
-      if (nav.level === 1) html += `<span class="current">${esc(s?.name||'')}</span>`;
-      else html += `<span onclick="goSetor('${nav.setorId}')">${esc(s?.name||'')}</span>`;
-    }
-    if (nav.level === 2) {
-      const m = (marcas[nav.setorId]||{})[nav.marcaId];
-      html += `<span class="sep">›</span><span class="current">${esc(m?.name||'')}</span>`;
-    }
-    bc.innerHTML = html;
+function renderBreadcrumb(){
+  const bc=document.getElementById('bc');
+  if(nav.level===0){bc.innerHTML='';return;}
+  let h=`<span class="bc-link" onclick="goHome()">🏠 Início</span>`;
+  if(nav.level>=1){
+    const s=setores[nav.setorId];
+    h+=`<span class="bc-sep">›</span>`;
+    if(nav.level===1) h+=`<span class="bc-cur">${esc(s?.name||'')}</span>`;
+    else h+=`<span class="bc-link" onclick="goSetor('${nav.setorId}')">${esc(s?.name||'')}</span>`;
   }
-
-  function renderTopActions() {
-    const el = document.getElementById('top-actions');
-    if (!editMode) { el.innerHTML = ''; return; }
-    if (nav.level === 0) {
-      el.innerHTML = `<button class="pink-btn" onclick="addSetor()"><i class="ti ti-plus"></i> Novo setor</button>`;
-    } else if (nav.level === 1) {
-      el.innerHTML = `<button class="pink-btn" onclick="addMarca('${nav.setorId}')"><i class="ti ti-plus"></i> Nova marca</button>`;
-    } else {
-      el.innerHTML = `<button class="pink-btn" onclick="addFornec('${nav.setorId}','${nav.marcaId}')"><i class="ti ti-plus"></i> Novo fornecedor</button>`;
-    }
+  if(nav.level===2){
+    const m=(marcas[nav.setorId]||{})[nav.marcaId];
+    h+=`<span class="bc-sep">›</span><span class="bc-cur">${esc(m?.name||'')}</span>`;
   }
+  bc.innerHTML=h;
+}
 
-  function renderSetores() {
-    const el = document.getElementById('content');
-    const list = Object.values(setores).sort((a,b)=>a.ordem-b.ordem);
-    if (!list.length) {
-      el.innerHTML = `<div class="empty-hint">${editMode ? 'Clique em "+ Novo setor" para começar! 🌸' : 'Nenhum setor ainda 🌸'}</div>`;
-      return;
-    }
-    el.innerHTML = `<div class="setores-grid" id="setores-grid"></div>`;
-    const grid = document.getElementById('setores-grid');
-    list.forEach(s => {
-      const mlist = Object.values(marcas[s.id]||{}).sort((a,b)=>a.ordem-b.ordem);
-      const card = document.createElement('div');
-      card.className = 'setor-card';
-      const name = localNames['s_'+s.id] ?? s.name;
-      card.innerHTML = `
-        <div class="setor-card-header" onclick="${editMode?'':` goSetor('${s.id}')`}">
-          <div style="flex:1">
-            ${editMode
-              ? `<input class="edit-name-input" value="${esc(name)}" onclick="event.stopPropagation()" oninput="saveSetorName('${s.id}',this.value)" placeholder="Nome do setor"/>`
-              : `<div class="setor-card-title">${esc(name)}</div>`
-            }
-          </div>
-          <div class="edit-card-actions">
-            <span class="setor-card-count">${mlist.length} ${mlist.length===1?'marca':'marcas'}</span>
-            ${editMode ? `<button class="edit-icon-btn" onclick="event.stopPropagation();deleteSetor('${s.id}')" aria-label="Deletar"><i class="ti ti-trash"></i></button>` : ''}
-            ${!editMode ? `<i class="ti ti-chevron-right" style="color:#fff;font-size:14px;margin-left:6px"></i>` : ''}
-          </div>
+function renderTopAct(){
+  const el=document.getElementById('top-act');
+  if(!editMode){el.innerHTML='';return;}
+  if(nav.level===0) el.innerHTML=`<button class="pink-btn" onclick="addSetor()"><i class="ti ti-plus"></i> Novo setor</button>`;
+  else if(nav.level===1) el.innerHTML=`<button class="pink-btn" onclick="addMarca('${nav.setorId}')"><i class="ti ti-plus"></i> Nova marca</button>`;
+  else el.innerHTML=`<button class="pink-btn" onclick="addFornec('${nav.setorId}','${nav.marcaId}')"><i class="ti ti-plus"></i> Novo fornecedor</button>`;
+}
+
+function renderSetores(){
+  const el=document.getElementById('content');
+  const list=Object.values(setores).sort((a,b)=>a.ordem-b.ordem);
+  if(!list.length){
+    el.innerHTML=`<div class="empty-hint">${editMode?'Clique em "+ Novo setor" para começar! 🌸':'Nenhum setor ainda 🌸'}</div>`;
+    return;
+  }
+  el.innerHTML='<div class="setores-grid" id="sg"></div>';
+  const grid=document.getElementById('sg');
+  list.forEach(s=>{
+    const mlist=Object.values(marcas[s.id]||{}).sort((a,b)=>a.ordem-b.ordem);
+    const card=document.createElement('div');
+    card.className='setor-card';
+    card.innerHTML=`
+      <div class="setor-hd">
+        <div style="flex:1;min-width:0">
+          ${editMode
+            ? `<input class="hd-input" value="${esc(s.name)}" onclick="event.stopPropagation()" oninput="saveSetorName('${s.id}',this.value)" placeholder="Nome do setor"/>`
+            : `<div class="setor-title">${esc(s.name)}</div>`
+          }
         </div>
-        <div class="setor-card-body" onclick="${editMode?'':` goSetor('${s.id}')`}" style="${editMode?'':'cursor:pointer'}">
-          ${mlist.length === 0 ? `<span class="setor-card-empty">Nenhuma marca ainda</span>` : mlist.slice(0,3).map(m => `<span class="setor-card-tag">${esc(localNames['m_'+m.id]??m.name)}</span>`).join('')}
-          ${mlist.length > 3 ? `<span class="setor-card-more">+${mlist.length-3} mais...</span>` : ''}
-          ${editMode ? `<button class="add-dashed" onclick="event.stopPropagation();addMarca('${s.id}')"><i class="ti ti-plus" style="font-size:12px"></i> Nova marca</button>` : ''}
-        </div>`;
-      grid.appendChild(card);
-    });
-  }
-
-  function renderMarcas() {
-    const el = document.getElementById('content');
-    const s = setores[nav.setorId];
-    const mlist = Object.values(marcas[nav.setorId]||{}).sort((a,b)=>a.ordem-b.ordem);
-    if (!mlist.length) {
-      el.innerHTML = `<div class="empty-hint">${editMode ? 'Clique em "+ Nova marca" para começar! 🌸' : 'Nenhuma marca ainda 🌸'}</div>`;
-      return;
-    }
-    el.innerHTML = `
-      <div class="section-title">${esc(s?.name||'')} <div class="divider-line"></div></div>
-      <div class="marcas-grid" id="marcas-grid"></div>`;
-    const grid = document.getElementById('marcas-grid');
-    mlist.forEach(m => {
-      const fkey = nav.setorId+'_'+m.id;
-      const flist = (fornecs[fkey]||[]).filter(f=>f.name||f.link);
-      const card = document.createElement('div');
-      card.className = 'marca-card';
-      const name = localNames['m_'+m.id] ?? m.name;
-      card.innerHTML = `
-        <div class="marca-card-header" onclick="${editMode?'':` goMarca('${nav.setorId}','${m.id}')`}">
-          <div style="flex:1">
-            ${editMode
-              ? `<input class="edit-name-input" value="${esc(name)}" onclick="event.stopPropagation()" oninput="saveMarcaName('${nav.setorId}','${m.id}',this.value)" placeholder="Nome da marca"/>`
-              : `<div class="marca-card-title">${esc(name)}</div>`
-            }
-          </div>
-          <div class="edit-card-actions">
-            <span class="marca-card-count">${flist.length} ${flist.length===1?'fornecedor':'fornecedores'}</span>
-            ${editMode ? `<button class="edit-icon-btn" onclick="event.stopPropagation();deleteMarca('${nav.setorId}','${m.id}')" aria-label="Deletar"><i class="ti ti-trash"></i></button>` : ''}
-            ${!editMode ? `<i class="ti ti-chevron-right" style="color:#fff;font-size:14px;margin-left:6px"></i>` : ''}
-          </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <span class="cnt">${mlist.length} ${mlist.length===1?'marca':'marcas'}</span>
+          ${editMode?`<button class="icon-btn" onclick="event.stopPropagation();deleteSetor('${s.id}')"><i class="ti ti-trash"></i></button>`:'<i class="ti ti-chevron-right" style="color:#fff;font-size:14px"></i>'}
         </div>
-        <div class="marca-card-body" onclick="${editMode?'':` goMarca('${nav.setorId}','${m.id}')`}" style="${editMode?'':'cursor:pointer'}">
-          ${flist.length ? `<span>${flist.slice(0,2).map(f=>esc(f.name)).join(', ')}${flist.length>2?'...':''}</span>` : `<span class="marca-card-preview">Nenhum fornecedor ainda</span>`}
+      </div>
+      <div class="setor-body" onclick="goSetor('${s.id}')">
+        ${mlist.length===0?`<span class="setor-empty">Nenhuma marca ainda</span>`:mlist.slice(0,4).map(m=>`<span class="setor-tag">${esc(m.name)}</span>`).join('')}
+        ${mlist.length>4?`<span class="setor-more">+${mlist.length-4} mais...</span>`:''}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderMarcas(){
+  const el=document.getElementById('content');
+  const s=setores[nav.setorId];
+  const mlist=Object.values(marcas[nav.setorId]||{}).sort((a,b)=>a.ordem-b.ordem);
+  if(!mlist.length){
+    el.innerHTML=`<div class="empty-hint">${editMode?'Clique em "+ Nova marca" para começar! 🌸':'Nenhuma marca ainda 🌸'}</div>`;
+    return;
+  }
+  el.innerHTML=`<div class="sec-title">${esc(s?.name||'')} <div class="sec-line"></div></div><div class="marcas-grid" id="mg"></div>`;
+  const grid=document.getElementById('mg');
+  mlist.forEach(m=>{
+    const fk=nav.setorId+'_'+m.id;
+    const flist=(fornecs[fk]||[]).filter(f=>f.name||f.link);
+    const card=document.createElement('div');
+    card.className='marca-card';
+    card.innerHTML=`
+      <div class="marca-hd">
+        <div style="flex:1;min-width:0">
+          ${editMode
+            ? `<input class="hd-input" value="${esc(m.name)}" onclick="event.stopPropagation()" oninput="saveMarcaName('${nav.setorId}','${m.id}',this.value)" placeholder="Nome da marca"/>`
+            : `<div class="marca-title">${esc(m.name)}</div>`
+          }
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <span class="cnt">${flist.length} fornec.</span>
+          ${editMode?`<button class="icon-btn" onclick="event.stopPropagation();deleteMarca('${nav.setorId}','${m.id}')"><i class="ti ti-trash"></i></button>`:'<i class="ti ti-chevron-right" style="color:#fff;font-size:14px"></i>'}
+        </div>
+      </div>
+      <div class="marca-body" onclick="goMarca('${nav.setorId}','${m.id}')">
+        ${flist.length?flist.slice(0,2).map(f=>esc(f.name)).join(', ')+(flist.length>2?'...':''):'<span style="font-style:italic;opacity:.7">Nenhum fornecedor ainda</span>'}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderFornecs(){
+  const el=document.getElementById('content');
+  const m=(marcas[nav.setorId]||{})[nav.marcaId];
+  const fk=nav.setorId+'_'+nav.marcaId;
+  const flist=(fornecs[fk]||[]).sort((a,b)=>a.ordem-b.ordem);
+
+  // Salva foco antes de re-renderizar
+  const focusedKey=document.activeElement?.dataset?.fk;
+  const focusedPos=document.activeElement?.selectionStart;
+
+  el.innerHTML=`<div class="sec-title">${esc(m?.name||'')} <div class="sec-line"></div></div>`;
+
+  if(!flist.length&&!editMode){
+    el.innerHTML+=`<div class="empty-hint">Nenhum fornecedor ainda 🌸</div>`;
+    return;
+  }
+
+  const wrap=document.createElement('div');
+  wrap.className='fornec-wrap';
+
+  // Header
+  const hrow=document.createElement('div');
+  hrow.className='fornec-header-row';
+  hrow.innerHTML=`<div class="fornec-col">✦ Nome</div><div class="fornec-col">🔗 Link</div><div></div>`;
+  wrap.appendChild(hrow);
+
+  flist.forEach(f=>{
+    const row=document.createElement('div');
+    row.className='fornec-row';
+    if(editMode){
+      const nk=`${fk}_${f.id}_name`;
+      const lk=`${fk}_${f.id}_link`;
+      row.innerHTML=`
+        <input type="text" placeholder="Nome..." value="${esc(f.name)}" data-fk="${nk}" oninput="saveFornec('${nav.setorId}','${nav.marcaId}','${f.id}','name',this.value)"/>
+        <input type="url" placeholder="https://..." value="${esc(f.link)}" data-fk="${lk}" oninput="saveFornec('${nav.setorId}','${nav.marcaId}','${f.id}','link',this.value)"/>
+        <div class="row-acts">
+          <button class="go-btn" onclick="openLink('${esc(f.link)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>
+          <button class="del-btn" onclick="deleteFornec('${nav.setorId}','${nav.marcaId}','${f.id}')" aria-label="Remover"><i class="ti ti-x"></i></button>
         </div>`;
-      grid.appendChild(card);
-    });
-  }
-
-  function renderFornecs() {
-    const el = document.getElementById('content');
-    const m = (marcas[nav.setorId]||{})[nav.marcaId];
-    const fkey = nav.setorId+'_'+nav.marcaId;
-    const flist = (fornecs[fkey]||[]).sort((a,b)=>a.ordem-b.ordem);
-
-    el.innerHTML = `<div class="section-title">${esc(m?.name||'')} <div class="divider-line"></div></div>`;
-
-    if (!flist.length && !editMode) {
-      el.innerHTML += `<div class="empty-hint">Nenhum fornecedor ainda 🌸</div>`;
-      return;
+    } else {
+      if(!f.name&&!f.link) return;
+      const url=f.link?(f.link.startsWith('http')?f.link:'https://'+f.link):'';
+      row.innerHTML=`
+        <div class="f-name">${esc(f.name)||'—'}</div>
+        <div class="f-link">${url?`<a href="${esc(url)}" target="_blank">${esc(f.link)}</a>`:'<span style="color:#f48fb1">—</span>'}</div>
+        <div class="row-acts">${url?`<button class="go-btn" onclick="openLink('${esc(url)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>`:'<span style="width:28px"></span>'}</div>`;
     }
+    wrap.appendChild(row);
+  });
 
-    const list = document.createElement('div');
-    list.className = 'fornec-list';
+  el.appendChild(wrap);
 
-    // Cabeçalho
-    const hrow = document.createElement('div');
-    hrow.style.cssText = 'display:grid;grid-template-columns:1fr 2fr auto;gap:10px;padding:10px 16px;background:linear-gradient(90deg,#f06292,#e91e8c);';
-    hrow.innerHTML = `<div style="font-size:11px;letter-spacing:1.5px;color:#fff;text-transform:uppercase;font-weight:500">✦ Nome</div><div style="font-size:11px;letter-spacing:1.5px;color:#fff;text-transform:uppercase;font-weight:500">🔗 Link</div><div></div>`;
-    list.appendChild(hrow);
-
-    const focused = document.activeElement?.dataset?.fkey;
-
-    flist.forEach(f => {
-      const row = document.createElement('div');
-      row.className = 'fornec-row';
-      if (editMode) {
-        const nk = fkey+'_'+f.id+'_name';
-        const lk = fkey+'_'+f.id+'_link';
-        row.innerHTML = `
-          <input type="text" placeholder="Nome..." value="${esc(localVals[nk]??f.name)}" data-fkey="${nk}" oninput="saveFornec('${nav.setorId}','${nav.marcaId}','${f.id}','name',this.value)"/>
-          <input type="url" placeholder="https://..." value="${esc(localVals[lk]??f.link)}" data-fkey="${lk}" oninput="saveFornec('${nav.setorId}','${nav.marcaId}','${f.id}','link',this.value)"/>
-          <div class="row-actions">
-            <button class="go-btn" onclick="openLink('${esc(f.link)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>
-            <button class="del-btn" onclick="deleteFornec('${nav.setorId}','${nav.marcaId}','${f.id}')" aria-label="Remover"><i class="ti ti-x"></i></button>
-          </div>`;
-      } else {
-        if (!f.name && !f.link) return;
-        const url = f.link ? (f.link.startsWith('http')?f.link:'https://'+f.link) : '';
-        row.innerHTML = `
-          <div class="fornec-name">${esc(f.name)||'—'}</div>
-          <div class="fornec-link">${url?`<a href="${esc(url)}" target="_blank">${esc(f.link)}</a>`:'<span style="color:#f48fb1">—</span>'}</div>
-          <div class="row-actions">${url?`<button class="go-btn" onclick="openLink('${esc(url)}')" aria-label="Abrir"><i class="ti ti-arrow-right"></i></button>`:'<span style="width:28px"></span>'}</div>`;
-      }
-      list.appendChild(row);
-    });
-
-    el.appendChild(list);
-
-    // Restaura foco
-    if (focused) {
-      const el2 = list.querySelector(`[data-fkey="${focused}"]`);
-      if (el2) { el2.focus(); const l=el2.value.length; el2.setSelectionRange(l,l); }
-    }
+  // Restaura foco
+  if(focusedKey){
+    const inp=wrap.querySelector(`[data-fk="${focusedKey}"]`);
+    if(inp){ inp.focus(); try{inp.setSelectionRange(focusedPos,focusedPos);}catch(e){} }
   }
+}
 
-  window.openLink = (url) => { if (url) window.open(url,'_blank'); }
+window.openLink=(url)=>{ if(url) window.open(url,'_blank'); };
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2000);
-  }
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
 
-  function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
 </body>
 </html>
